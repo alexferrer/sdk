@@ -1,6 +1,8 @@
 package com.reconinstruments.ui.list;
 
+import android.content.Context;
 import android.view.View;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
@@ -29,6 +31,6 @@ public abstract class SimpleListItem {
     public View getView() {
         return listView.getChildAt(position-listView.getFirstVisiblePosition());
     }
-    public void onClick() {};
-    public void onSelected() {}
+    public void onClick(Context context) {};
+    public void onSelected(Context context) {}
 }

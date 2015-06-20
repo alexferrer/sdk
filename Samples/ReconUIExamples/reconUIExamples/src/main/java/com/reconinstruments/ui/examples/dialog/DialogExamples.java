@@ -1,5 +1,6 @@
 package com.reconinstruments.ui.examples.dialog;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,7 +29,7 @@ public class DialogExamples extends SimpleListActivity {
             super(text);
             this.callback = callback;
         }
-        public void onClick() {
+        public void onClick(Context context) {
             callback.onClick(this);
         }
         public void setSubtitle(String subtitle) {
@@ -42,45 +43,40 @@ public class DialogExamples extends SimpleListActivity {
         }
     }
     public interface OnClickCallback {
-        public void onClick(ListItem item);
+        void onClick(ListItem item);
     }
-
-    SimpleListItem[] items = {
-            new ListItem("Selection Dialog",new OnClickCallback() {
-                public void onClick(ListItem item) {
-                    createSelectionDialog(item);
-                }
-            }),
-            new ListItem("Pop up Dialog",new OnClickCallback() {
-                public void onClick(ListItem item) {
-                    createPopupDialog();
-                }
-            }),
-            new ListItem("Basic Dialog",new OnClickCallback() {
-                public void onClick(ListItem item) {
-                    createBasicDialog();
-                }
-            }),
-            new ListItem("Progress Dialog",new OnClickCallback() {
-                public void onClick(ListItem item) {
-                    createProgressDialog();
-                }
-            }),
-            new ListItem("Custom Selection Dialog",new OnClickCallback() {
-                public void onClick(ListItem item) {
-                    createCustomSelectionDialog(item);
-                }
-            })
-    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public List<SimpleListItem> createContents() {
-        return Arrays.asList(items);
+        setContentView(R.layout.list_standard_layout);
+        setContents(
+                new ListItem("Selection Dialog",new OnClickCallback() {
+                    public void onClick(ListItem item) {
+                        createSelectionDialog(item);
+                    }
+                }),
+                new ListItem("Pop up Dialog",new OnClickCallback() {
+                    public void onClick(ListItem item) {
+                        createPopupDialog();
+                    }
+                }),
+                new ListItem("Basic Dialog",new OnClickCallback() {
+                    public void onClick(ListItem item) {
+                        createBasicDialog();
+                    }
+                }),
+                new ListItem("Progress Dialog",new OnClickCallback() {
+                    public void onClick(ListItem item) {
+                        createProgressDialog();
+                    }
+                }),
+                new ListItem("Custom Selection Dialog",new OnClickCallback() {
+                    public void onClick(ListItem item) {
+                        createCustomSelectionDialog(item);
+                    }
+                })
+        );
     }
 
     CarouselItem[] selections = {

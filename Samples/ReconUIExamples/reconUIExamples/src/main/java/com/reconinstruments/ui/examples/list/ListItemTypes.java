@@ -1,5 +1,6 @@
 package com.reconinstruments.ui.examples.list;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import com.reconinstruments.ui.examples.R;
@@ -43,17 +44,20 @@ public class ListItemTypes extends SimpleListActivity {
         }
     }
 
-    SimpleListItem[] items = {
-            new StandardListItem("Default item text only"),
-            new StandardListItem("Default w/ icon", R.drawable.selectable_icon_display),
-            new StandardListItem("With subtext", "subtext"),
-            new StandardListItem("Default w/ info icon", null, null, R.drawable.selectable_icon_display),
-            new CustomLayoutItem("Custom layout", "subtext"),
-            new CustomItem("Custom view binding", "subtext 1","subtext 2")
-    };
-
     @Override
-    public SimpleArrayAdapter createAdapter(List<SimpleListItem> contents) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.list_standard_layout);
+        setAdapter(createAdapter(
+                new StandardListItem("Default item text only"),
+                new StandardListItem("Default w/ icon", R.drawable.selectable_icon_display),
+                new StandardListItem("With subtext", "subtext"),
+                new StandardListItem("Default w/ info icon", null, null, R.drawable.selectable_icon_display),
+                new CustomLayoutItem("Custom layout", "subtext"),
+                new CustomItem("Custom view binding", "subtext 1", "subtext 2")));
+    }
+
+    public SimpleArrayAdapter<SimpleListItem> createAdapter(SimpleListItem... contents) {
         return new SimpleArrayAdapter<SimpleListItem>(this,contents) {
             @Override
             public int getViewTypeCount() {
@@ -71,9 +75,5 @@ public class ListItemTypes extends SimpleListActivity {
                 return -1;
             }
         };
-    }
-    @Override
-    public List<SimpleListItem> createContents() {
-        return Arrays.asList(items);
     }
 }
