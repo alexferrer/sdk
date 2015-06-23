@@ -29,7 +29,8 @@
 		tools:text="SUBTITLE"
 		android:gravity="center"
 		android:lineSpacingExtra="-6dp"
-		android:textSize="24sp" />
+		android:textSize="24sp"
+		android:maxLines="3"/>
 
 	<com.reconinstruments.ui.carousel.CarouselViewPager
 		android:id="@+id/carousel"

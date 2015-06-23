@@ -16,8 +16,12 @@
         <item name="android:colorBackground">@color/recon_jet_background</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
     <style name="ReconTheme.Dialog" parent="ReconTheme">
         <item name="android:windowBackground">@color/recon_jet_background_translucent</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/recon_dialog_animation</item>
     </style>
 </resources>
