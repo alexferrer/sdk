@@ -1,12 +1,16 @@
 package com.reconinstruments.ui.examples.carousel;
 
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.reconinstruments.ui.carousel.CarouselActivity;
 import com.reconinstruments.ui.carousel.CarouselItem;
+import com.reconinstruments.ui.carousel.CarouselPagerViewAdapter;
 import com.reconinstruments.ui.examples.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

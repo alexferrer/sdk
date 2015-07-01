@@ -9,6 +9,7 @@
 		<attr name="animateSelection" format="boolean" />
 		<attr name="pageMargin" format="dimension" />
 		<attr name="pageWidth" format="dimension" />
+		<attr name="fixedPageWidth" format="boolean" />
     </declare-styleable>
 
 	<declare-styleable name="ButtonActionView">

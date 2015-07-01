@@ -1,13 +1,7 @@
 package com.reconinstruments.ui.carousel;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,11 +10,8 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.FrameLayout;
 import android.widget.Scroller;
-import android.widget.TextView;
 import com.reconinstruments.ui.R;
-import com.reconinstruments.ui.UIUtils;
 import com.reconinstruments.ui.breadcrumb.BreadcrumbToast;
 
 import java.lang.reflect.Field;
@@ -29,8 +20,10 @@ import java.util.List;
 
 /*
  * Custom horizontal view pager containing views defined by a list of CarouselItems
+ *
+ * TODO: allow for individual page widths
  */
-public class CarouselViewPager extends ViewPager {
+public class CarouselViewPager extends CenterAlignViewPager {
     private static final String TAG = CarouselViewPager.class.getSimpleName();
 
     // Do not show breadcrumbs if fewer fragments than this
@@ -46,8 +39,6 @@ public class CarouselViewPager extends ViewPager {
     private boolean animateSelection;
     // margin between pages
     private int pageMargin;
-    // width of active page, will pad active page with remaining width
-    private int pageWidth;
 
     // parent view to attach breadcrumbs to
     private ViewGroup breadcrumbContainer;
@@ -86,29 +77,23 @@ public class CarouselViewPager extends ViewPager {
             showBreadcrumbs = a.getBoolean(R.styleable.CarouselViewPager_showBreadcrumbs, true);
             animateSelection = a.getBoolean(R.styleable.CarouselViewPager_animateSelection, false);
             pageMargin = a.getDimensionPixelSize(R.styleable.CarouselViewPager_pageMargin, 0);
-            pageWidth = a.getDimensionPixelSize(R.styleable.CarouselViewPager_pageWidth, 250);
         } finally {
             a.recycle();
         }
         init();
     }
 
-    @Override
-    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
-        super.onSizeChanged(width, height, oldWidth, oldHeight);
-
-        int horizontalPadding = (width-pageWidth)/2;
-        setPadding(horizontalPadding, 0, horizontalPadding, 0);
-    }
 
     public void init() {
         setPageMargin(pageMargin);
         setClipToPadding(false);
+        this.setClipChildren(false);
+        this.setOffscreenPageLimit(3);
 
         // Use reflection to set fixed scroll speed
         Interpolator sInterpolator = new DecelerateInterpolator();
         try {
-            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            Field mScroller = CenterAlignViewPager.class.getDeclaredField("mScroller");
             mScroller.setAccessible(true);
             FixedSpeedScroller scroller = new FixedSpeedScroller(getContext(), sInterpolator, SCROLL_SPEED);
             mScroller.set(this, scroller);
@@ -198,17 +183,20 @@ public class CarouselViewPager extends ViewPager {
         setContents(Arrays.asList(items));
     }
     public void setContents(List<? extends CarouselItem> items){
-        mPagerAdapter = new CarouselPagerViewAdapter(getContext(),items);
-        initializeContents(items.size());
+        setAdapter(new CarouselPagerViewAdapter(getContext(),items,this));
     }
 
-    private void initializeContents(int numItems) {
-        setAdapter((PagerAdapter)mPagerAdapter);
-
+    public void setAdapter(CarouselPagerViewAdapter adapter) {
+        super.setAdapter(adapter);
+        mPagerAdapter = adapter;
+        initBreadcrumbs();
+        setSelection(0);
+    }
+    private void initBreadcrumbs() {
+        int numItems = mPagerAdapter.getCount();
         if(showBreadcrumbs&&numItems>=MIN_NUM_FRAGMENTS_TO_SHOW_BREADCRUMBS) {
             breadcrumbToast = new BreadcrumbToast(getContext(),breadcrumbContainer,true,numItems);
         }
-        setSelection(0);
     }
 
     public void setSelection(int selection) {

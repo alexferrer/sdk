@@ -1,6 +1,7 @@
 package com.reconinstruments.ui.list;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import com.reconinstruments.ui.R;
 
@@ -30,7 +31,11 @@ public class ToggleListItem extends StandardListItem {
     }
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-        ImageView subIcon = (ImageView) getView().findViewById(R.id.subicon);
-        subIcon.setImageResource(getSubIconId());
+        View view = getView();
+        // update view in place if already created
+        if(view!=null) {
+            ImageView subIcon = (ImageView) getView().findViewById(R.id.subicon);
+            subIcon.setImageResource(getSubIconId());
+        }
     }
 }
