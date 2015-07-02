@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<declare-styleable name="ReconListView">
+		<attr name="listHeaderMargin" format="dimension" />
+	</declare-styleable>
+
 	<declare-styleable name="ReconTextView">
 		<attr name="fontResource" format="reference" />
 	</declare-styleable>

@@ -16,7 +16,8 @@
         <activity android:name=".carousel.ImageCarousel"/>
         <activity android:name=".carousel.StatCarousel"/>
         <activity android:name=".list.ListExamples"/>
-        <activity android:name=".list.ListWithInfoActivity"/>
+        <activity android:name=".list.ListWithInfoActivity"
+                  android:theme="@style/ReconTheme.Fullscreen"/>
         <activity android:name=".list.ListItemTypes"/>
         <activity android:name=".list.DynamicList"/>
         <activity android:name=".dialog.DialogExamples"/>

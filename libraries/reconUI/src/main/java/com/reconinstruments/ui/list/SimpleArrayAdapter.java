@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class SimpleArrayAdapter<T extends SimpleListItem> extends ArrayAdapter<T> {
 
+    ReconListView listView;
+
     Context context = null;
     List<T> contents = null;
 
@@ -25,6 +27,10 @@ public class SimpleArrayAdapter<T extends SimpleListItem> extends ArrayAdapter<T
         super(context, 0, contents);
         this.context = context;
         this.contents = contents;
+    }
+
+    public void setListView(ReconListView listView) {
+        this.listView = listView;
     }
 
     @Override
@@ -48,7 +54,7 @@ public class SimpleArrayAdapter<T extends SimpleListItem> extends ArrayAdapter<T
         // match the adapter items 1 to 1
         // The convertView layout needs to be able to insert top padding without changing the inner layout
         if(position==0) {
-            convertView.setPadding(0, 18, 0, 0);
+            convertView.setPadding(0, listView.listHeaderMargin, 0, 0);
         } else {
             convertView.setPadding(0, 0, 0, 0);
         }

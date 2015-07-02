@@ -17,10 +17,10 @@ import java.util.List;
 public abstract class SimpleListActivity extends FragmentActivity {
 
     SimpleArrayAdapter<SimpleListItem> mListAdapter;
-    protected ListView mListView;
+    protected ReconListView mListView;
 
 
-    public ListView getListView() {
+    public ReconListView getListView() {
         return mListView;
     }
 
@@ -28,10 +28,6 @@ public abstract class SimpleListActivity extends FragmentActivity {
         setContents(Arrays.asList(contents));
     }
     public void setContents(List<SimpleListItem> contents) {
-        if(mListView==null) {
-            mListView = (ListView) findViewById(android.R.id.list);
-        }
-
         setAdapter(new SimpleArrayAdapter<SimpleListItem>(this,contents));
     }
 
@@ -42,7 +38,9 @@ public abstract class SimpleListActivity extends FragmentActivity {
     }
 
     public void setAdapter(SimpleArrayAdapter<SimpleListItem> adapter) {
-
+        if(mListView==null) {
+            mListView = (ReconListView) findViewById(android.R.id.list);
+        }
         attachContents(adapter.contents);
         mListAdapter = adapter;
         mListView.setAdapter(mListAdapter);

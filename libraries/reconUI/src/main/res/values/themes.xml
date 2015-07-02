@@ -7,9 +7,9 @@
         <item name="android:windowBackground">@color/recon_jet_background</item>
         <item name="android:colorBackground">@color/recon_jet_background</item>
         <item name="android:dialogTheme">@style/ReconTheme.Dialog</item>
-
         <item name="android:textViewStyle">@style/recon_jet_text_primary</item>
         <item name="android:listViewStyle">@style/recon_list</item>
+        <item name="listHeaderMargin">18px</item>
     </style>
     <style name="ReconTheme.Fullscreen" parent="ReconTheme">
         <item name="android:windowBackground">@color/recon_jet_background</item>
