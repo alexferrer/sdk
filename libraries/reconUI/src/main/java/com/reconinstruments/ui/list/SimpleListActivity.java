@@ -76,8 +76,6 @@ public abstract class SimpleListActivity extends FragmentActivity {
      * @param item item to update view for
      */
     public void updateItem(SimpleListItem item) {
-        int position = mListAdapter.getPosition(item);
-        View view = getListView().getChildAt(position);
-        getAdapter().getView(position, view, getListView());
+        getAdapter().getView(item.position, item.getView(), getListView());
     }
 }
