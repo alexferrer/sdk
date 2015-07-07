@@ -30,7 +30,7 @@ public class CarouselDialogExample extends CarouselDialog implements DialogBuild
         }
         @Override
         public int getLayoutId() {
-            return R.layout.carousel_item_hidden_checkmark;
+            return R.layout.carousel_item_checkmark_selector;
         }
     }
 
