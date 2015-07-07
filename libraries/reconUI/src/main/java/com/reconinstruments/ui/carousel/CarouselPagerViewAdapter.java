@@ -65,67 +65,13 @@ public class CarouselPagerViewAdapter extends PagerAdapter {
         if(view==null) {
             CarouselItem carouselItem = items.get(position);
 
-            View innerView = inflater.inflate(carouselItem.getLayoutId(), null);
-            carouselItem.updateView(innerView);
+            view = inflater.inflate(carouselItem.getLayoutId(), null);
+            carouselItem.updateView(view);
 
-            /*pager.setClipChildren(false);
-            RelativeLayout relativeLayout = new RelativeLayout(context);
-            relativeLayout.setClipChildren(false);
-            relativeLayout.setClipToPadding(false);
-            relativeLayout.addView(innerView);*/
-            //FrameLayout frameLayout = new FrameLayout(context);
-            /*frameLayout.setClipChildren(false);
-            frameLayout.setClipToPadding(false);
-            frameLayout.setLayerType(View.LAYER_TYPE_SOFTWARE, null);*/
-            //frameLayout.addView(innerView);
-            /*FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            if(position==0) {
-                //lp.leftMargin = getViewMargin(view);
-                //lp.rightMargin = -lp.leftMargin;
-            }
-            view.setLayoutParams(lp);*/
-            //view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-
-            /*if(position-1>0)
-            {
-                View prevView = views[position];
-                pager.setPageMargin();
-
-                int viewWidth = view.getMeasuredWidth();
-            }*/
-
-            //view.setBackgroundColor(0xFF0000);
-            //view.setPadding(50,0,50,0);
-
-            /*if(position==0)
-                offset = getViewMargin(innerView);
-            //innerView.setTranslationX(offset);
-            innerView.invalidate();
-            innerView.requestLayout();
-
-            relativeLayout.invalidate();
-            relativeLayout.requestLayout();
-
-            pager.invalidate();*/
-
-            //view = frameLayout;
-            view = innerView;
             view.setTag(position);
             views[position] = view;
         }
         return view;
-    }
-
-    int offset;
-
-    public int getViewMargin(View view) {
-        int pagerWidth = UIUtils.JET_SCREEN_WIDTH;//pager.getMeasuredWidth();
-        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-
-        int viewWidth = view.getMeasuredWidth();
-        int margin = (pagerWidth-viewWidth)/2;
-        //Log.d("TAG"," width "+view.getMeasuredWidth()+ " pager width "+pagerWidth+" margin "+margin);
-        return margin;
     }
 
     public CarouselItem getCarouselItem(int position) {
@@ -153,11 +99,11 @@ public class CarouselPagerViewAdapter extends PagerAdapter {
         View view = getView(position);
         int viewWidth = view.getMeasuredWidth();
         // if view hasn't been measured yet
-        //if(viewWidth==0) {
-            view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        if(viewWidth==0) {
+            int unspecSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+            view.measure(unspecSpec,unspecSpec);
             viewWidth = view.getMeasuredWidth();
-        //}
+        }
         // account for rounding errors that might clip text
         viewWidth += 1;
 
