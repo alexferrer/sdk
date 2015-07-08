@@ -8,7 +8,7 @@
         android:id="@+id/valuecontainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_centerInParent="true">
         <!-- add equal sized space on left so that title can be centered and view is still measurable -->
         <TextView
             android:id="@+id/unitspace"
