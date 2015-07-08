@@ -24,6 +24,13 @@ public abstract class SimpleListItem {
      */
     public abstract void updateView(View view);
 
+    /* Update the items view if it exists yet */
+    public void updateView() {
+        View view = getView();
+        if(view!=null)
+            updateView(view);
+    }
+
     /**
      * Retrieve the items view from it's parent listView, doesn't cache the view so that it can be recreated/managed
      * by the parent

@@ -17,11 +17,11 @@ public class ToggleListItem extends StandardListItem {
     @Override
     public void onClick(Context context) {
         setEnabled(!enabled);
-        onToggle(enabled);
+        onToggle(isEnabled());
     }
     @Override
     public Integer getSubIconId() {
-        return enabled ? R.drawable.selectable_checkbox_enabled:R.drawable.selectable_checkbox_disabled;
+        return isEnabled() ? R.drawable.selectable_checkbox_enabled:R.drawable.selectable_checkbox_disabled;
     }
 
     public void onToggle(boolean enabled) {}
@@ -29,13 +29,9 @@ public class ToggleListItem extends StandardListItem {
     public boolean isEnabled() {
         return enabled;
     }
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-        View view = getView();
-        // update view in place if already created
-        if(view!=null) {
-            ImageView subIcon = (ImageView) getView().findViewById(R.id.subicon);
-            subIcon.setImageResource(getSubIconId());
-        }
+        updateView();
     }
 }
