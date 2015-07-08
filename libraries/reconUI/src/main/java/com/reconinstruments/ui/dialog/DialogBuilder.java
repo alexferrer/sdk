@@ -225,7 +225,7 @@ public class DialogBuilder {
         if(onKeyListener!=null)
             dialog.setOnKeyListener(onKeyListener);
         if(onDismissListener!=null)
-            dialog.getDialog().setOnDismissListener(onDismissListener);
+            dialog.setOnDismissListener(onDismissListener);
         if(dismissTimeout!=-1)
             dialog.setDismissTimeout(dismissTimeout);
     }

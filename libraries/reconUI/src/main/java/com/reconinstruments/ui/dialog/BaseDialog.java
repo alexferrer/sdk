@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public abstract class BaseDialog extends DialogFragment implements DialogBuilder
     int dismissTimeout = -1;
 
     OnKeyListener onKeyListener;
+    DialogInterface.OnDismissListener onDismissListener;
 
     public BaseDialog(FragmentActivity context,int layout) {
         this.context = context;
@@ -54,6 +56,17 @@ public abstract class BaseDialog extends DialogFragment implements DialogBuilder
 
     public void setOnKeyListener(OnKeyListener onKeyListener) {
         this.onKeyListener = onKeyListener;
+    }
+
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if(onDismissListener!=null)
+            onDismissListener.onDismiss(dialog);
     }
 
     public void updateView() {
