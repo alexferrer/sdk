@@ -7,6 +7,7 @@ import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -30,19 +31,32 @@ public class VideoRecorder {
     public VideoRecorder(Activity activity, Camera camera) {
         this.activity = activity;
         this.camera = camera;
-        recordingStartTime = System.currentTimeMillis();
         videoValues = StorageUtils.getVideoData(camProfile,recordingStartTime);
         tmpVideoFile = StorageUtils.getVideoPath(videoValues)+".tmp";
         prepareMediaRecorder(tmpVideoFile);
+    }
 
+    public void startRecording() {
+        recordingStartTime = System.currentTimeMillis();
         mediaRecorder.start();
     }
 
     public void stopRecording() {
-        // stop recording and release camera
-        mediaRecorder.stop(); // stop the recording
-        releaseMediaRecorder(); // release the MediaRecorder object
+        boolean saveVideo = false;
+        try {
+            mediaRecorder.stop(); // stop the recording
+            saveVideo = true;
+        } catch(RuntimeException e) {
+            boolean deleted = new File(tmpVideoFile).delete();  //you must delete the outputfile when the recorder stop failed.
+            Log.e(TAG,"Error stopping media recorder "+(deleted?"deleted tmp fail":"failed to delete tmp file"),e);
+        } finally {
+            releaseMediaRecorder(); // release the MediaRecorder object
+        }
+        if(saveVideo)
+            storeVideo();
+    }
 
+    private void storeVideo() {
         long duration = System.currentTimeMillis() - recordingStartTime;
         if (duration <= 0) {
             Log.w(TAG, "Video duration <= 0 : " + duration);
@@ -77,7 +91,7 @@ public class VideoRecorder {
         return true;
     }
 
-    private void releaseMediaRecorder() {
+    public void releaseMediaRecorder() {
         if (mediaRecorder != null) {
             mediaRecorder.reset(); // clear recorder configuration
             mediaRecorder.release(); // release the recorder object

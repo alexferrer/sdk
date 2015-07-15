@@ -39,7 +39,7 @@
             android:id="@+id/carousel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            auto:pageWidth="60dp"/>
+            auto:pageMargin="15dp"/>
     </FrameLayout>
 
     <TextView
@@ -55,7 +55,7 @@
         android:shadowDy="3.0"
         android:shadowRadius="3.0"
         android:textSize="40dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         tools:visibility="visible"
         tools:text="00:10"/>
 

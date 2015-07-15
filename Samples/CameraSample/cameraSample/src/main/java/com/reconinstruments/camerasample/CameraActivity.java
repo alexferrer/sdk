@@ -1,10 +1,12 @@
 package com.reconinstruments.camerasample;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -15,9 +17,7 @@ import com.reconinstruments.ui.carousel.CarouselItem;
 import com.reconinstruments.ui.carousel.StandardCarouselItem;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class CameraActivity extends CarouselActivity {
@@ -34,33 +34,44 @@ public class CameraActivity extends CarouselActivity {
 
     SimpleDateFormat recordTimeFormatter = new SimpleDateFormat("mm:ss", Locale.getDefault());
 
+    CarouselItem photoItem;
+    CarouselItem videoItem;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        getCarousel().setContents(
-                new StandardCarouselItem(R.drawable.photo_icon) {
-                    @Override
-                    public void onClick(Context context) {
-                        camera.takePicture(null, null, jpegSavedCallback);
-                    }
-                },
-                new StandardCarouselItem(R.drawable.video_icon) {
-                    @Override
-                    public void onClick(Context context) {
-                        if(!isRecording())
-                            startRecording();
-                        else
-                            stopRecording();
-                    }
-                });
+        photoItem = new StandardCarouselItem(R.drawable.photo_icon) {
+            @Override
+            public void onClick(Context context) {
+                camera.takePicture(null, null, jpegSavedCallback);
+            }
+        };
+        videoItem = new StandardCarouselItem(R.drawable.video_icon);
+        getCarousel().setContents(photoItem,videoItem);
 
         preview = (CameraPreview) findViewById(R.id.preview);
         recordingTimeView = (TextView) findViewById(R.id.recording_time);
         modeSwitchView = (FrameLayout) findViewById(R.id.mode_switcher);
     }
 
+    // use onkeyup rather than CarouselItem.onClick for videoItem because the onClick event won't
+    // be received by the videoItem when it's invisible (when recording), can't be focused
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_DPAD_CENTER&&getCarousel().getCurrentCarouselItem() == videoItem) {
+            Log.d("TAG", "recording: " + isRecording());
+            if (!isRecording()) {
+                startRecording();
+            } else {
+                stopRecording();
+            }
+            return true;
+        }
+
+        return super.onKeyUp(keyCode, event);
+    }
 
     @Override
     protected void onResume() {
@@ -82,7 +93,8 @@ public class CameraActivity extends CarouselActivity {
     };
 
     private void startRecording() {
-        activeVideo = new VideoRecorder(this,camera);
+        activeVideo = new VideoRecorder(CameraActivity.this, camera);
+        activeVideo.startRecording();
 
         recordingTimeView.setVisibility(View.VISIBLE);
         modeSwitchView.setVisibility(View.GONE);
