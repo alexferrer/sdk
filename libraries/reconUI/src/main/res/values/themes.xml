@@ -24,8 +24,4 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/recon_dialog_animation</item>
     </style>
-    <style name="ReconTheme.Camera" parent="ReconTheme.Fullscreen">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowActionBarOverlay">true</item>
-    </style>
 </resources>
