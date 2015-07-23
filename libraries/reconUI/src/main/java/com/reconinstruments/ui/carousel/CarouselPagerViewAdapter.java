@@ -18,7 +18,14 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * ViewPager adapter class for CarouselItemFragments
+ * ViewPager adapter class for CarouselItems
+ * loads views as needed but will hold them all in memory
+ * because it holds onto all the child views it shouldn't be used to scroll through a huge number of items
+ * however, it is bad user experience for a user to scroll through a large number of carousel items regardless
+ *
+ * doesn't use a fragment adapter for this reason, that it allows a simpler API where custom items don't need to
+ * serialize their state, and for the size of carousels we will use in almost all cases, the fragment lifecycle is not
+ * beneficial
  */
 public class CarouselPagerViewAdapter extends PagerAdapter {
 

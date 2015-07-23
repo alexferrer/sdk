@@ -21,7 +21,6 @@ import java.util.List;
 /*
  * Custom horizontal view pager containing views defined by a list of CarouselItems
  *
- * TODO: allow for individual page widths
  */
 public class CarouselViewPager extends CenterAlignViewPager {
     private static final String TAG = CarouselViewPager.class.getSimpleName();
@@ -29,7 +28,7 @@ public class CarouselViewPager extends CenterAlignViewPager {
     // Do not show breadcrumbs if fewer fragments than this
     static final int MIN_NUM_FRAGMENTS_TO_SHOW_BREADCRUMBS = 3;
 
-    // Adapter for CarouselItemFragments
+    // Adapter for CarouselItems
     CarouselPagerViewAdapter mPagerAdapter;
 
     // configurable attributes
@@ -42,14 +41,12 @@ public class CarouselViewPager extends CenterAlignViewPager {
 
     // parent view to attach breadcrumbs to
     private ViewGroup breadcrumbContainer;
+    // holds the breadcrumb view
     private BreadcrumbToast breadcrumbToast;
 
     // time to scroll between pages, in ms
     static final int SCROLL_SPEED = 300;
 
-    // listener for when a page is scrolled to
-    OnPageSelectListener onPageSelectListener;
-    OnPageChangeListener onPageChangeListener;
     // listener for when user presses select on an item
     OnItemSelectedListener onItemSelectedListener;
 
@@ -57,7 +54,7 @@ public class CarouselViewPager extends CenterAlignViewPager {
      * Simplified onPageChangeListener, called when there is a new active page
      */
     public interface OnPageSelectListener {
-        void onPageSelected(int position);
+        void onPageSelected(CarouselItem item, int position);
     }
     /**
      * Called when the select button pressed on the active page
@@ -101,25 +98,9 @@ public class CarouselViewPager extends CenterAlignViewPager {
             Log.e(TAG, e.getMessage());
         }
 
-        super.setOnPageChangeListener(new OnPageChangeListener() {
+        addOnPageSelectListener(new OnPageSelectListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (onPageChangeListener != null)
-                    onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if (onPageChangeListener != null)
-                    onPageChangeListener.onPageScrollStateChanged(state);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (onPageChangeListener != null)
-                    onPageChangeListener.onPageSelected(position);
-                if (onPageSelectListener != null)
-                    onPageSelectListener.onPageSelected(position);
+            public void onPageSelected(CarouselItem item, int position) {
                 CarouselViewPager.this.onPageSelected(position);
             }
         });
@@ -133,13 +114,23 @@ public class CarouselViewPager extends CenterAlignViewPager {
         this.breadcrumbContainer = breadcrumbContainer;
     }
 
-    @Override
-    public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
-        this.onPageChangeListener = onPageChangeListener;
+    /*
+     * Add a listener to be called when a new page has become active, simplified form of onPageChangeListener
+     * that ignores scroll events
+     */
+    public void addOnPageSelectListener(final OnPageSelectListener onPageSelectListener) {
+        super.addOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+            @Override
+            public void onPageSelected(int position) {
+                onPageSelectListener.onPageSelected(getCarouselAdapter().getCarouselItem(position),position);
+            }
+        });
     }
-    public void setOnPageSelectListener(OnPageSelectListener onPageSelectListener) {
-        this.onPageSelectListener = onPageSelectListener;
-    }
+
     public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
         this.onItemSelectedListener = onItemSelectedListener;
     }
@@ -199,6 +190,9 @@ public class CarouselViewPager extends CenterAlignViewPager {
         }
     }
 
+    /*
+     * Scroll the carousel to the specified index
+     */
     public void setSelection(int selection) {
         setCurrentItem(selection);
         onPageSelected(selection);
