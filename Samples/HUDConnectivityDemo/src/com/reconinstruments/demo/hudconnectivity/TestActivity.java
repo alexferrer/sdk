@@ -53,20 +53,28 @@ public class TestActivity extends Activity implements OnClickListener, IHUDConne
         mUploadFile.setEnabled(false);
         mLoadImage.setEnabled(false);
 
-        mHUDConnectedTV.setText("HUD Disconnected");
+
+        //Get an instance of HUDConnectivityManager
+        mHUDConnectivityManager = (HUDConnectivityManager) HUDOS.getHUDService(HUDOS.HUD_CONNECTIVITY_SERVICE);
+        if (mHUDConnectivityManager == null) {
+            Log.e(TAG, "Failed to get HUDConnectivityManager");
+            finish();
+        }
+
         mHUDConnectedTV.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, MRED));
 
+        if (mHUDConnectivityManager.isHUDConnected()) {
+            Log.d(TAG, "HUD is connected.");
+            mHUDConnectedTV.setText("HUD Connected");
+        } else {
+            Log.d(TAG, "HUD is disconnected.");
+            mHUDConnectedTV.setText("HUD Disconnected");
+        }
         mLocalWebTV.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, MRED));
         mRemoteWebTV.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, MRED));
 
         //Note: This following line is necessary for HUDConnectivityManager to run properly
         System.load("/system/lib/libreconinstruments_jni.so");
-
-        //Get an instance of HUDConnectivityManager
-        mHUDConnectivityManager = (HUDConnectivityManager) HUDOS.getHUDService(HUDOS.HUD_CONNECTIVITY_SERVICE);
-        if(mHUDConnectivityManager == null){
-            Log.e(TAG, "Failed to get HUDConnectivityManager");
-        }
     }
 
     @Override
