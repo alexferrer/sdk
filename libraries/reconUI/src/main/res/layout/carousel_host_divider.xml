@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         tools:text="TITLE"
-        android:textColor="#ffffff"
         android:includeFontPadding="false"
         android:textSize="30sp" />
 

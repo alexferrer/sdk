@@ -1,5 +1,7 @@
 package com.reconinstruments.ui.list;
 
+import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import com.reconinstruments.ui.R;
 
@@ -13,13 +15,23 @@ public class ToggleListItem extends StandardListItem {
         this.enabled = enabled;
     }
     @Override
-    public void onClick() {
-        this.enabled = !enabled;
-        ImageView subIcon = (ImageView) getView().findViewById(R.id.subicon);
-        subIcon.setImageResource(getSubIconId());
+    public void onClick(Context context) {
+        setEnabled(!enabled);
+        onToggle(isEnabled());
     }
     @Override
     public Integer getSubIconId() {
-        return enabled ? R.drawable.selectable_checkbox_enabled:R.drawable.selectable_checkbox_disabled;
+        return isEnabled() ? R.drawable.selectable_checkbox_enabled:R.drawable.selectable_checkbox_disabled;
+    }
+
+    public void onToggle(boolean enabled) {}
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        updateView();
     }
 }

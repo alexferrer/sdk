@@ -1,13 +1,7 @@
 package com.reconinstruments.ui.carousel;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,11 +10,8 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.FrameLayout;
 import android.widget.Scroller;
-import android.widget.TextView;
 import com.reconinstruments.ui.R;
-import com.reconinstruments.ui.UIUtils;
 import com.reconinstruments.ui.breadcrumb.BreadcrumbToast;
 
 import java.lang.reflect.Field;
@@ -29,14 +20,15 @@ import java.util.List;
 
 /*
  * Custom horizontal view pager containing views defined by a list of CarouselItems
+ *
  */
-public class CarouselViewPager extends ViewPager {
+public class CarouselViewPager extends CenterAlignViewPager {
     private static final String TAG = CarouselViewPager.class.getSimpleName();
 
     // Do not show breadcrumbs if fewer fragments than this
     static final int MIN_NUM_FRAGMENTS_TO_SHOW_BREADCRUMBS = 3;
 
-    // Adapter for CarouselItemFragments
+    // Adapter for CarouselItems
     CarouselPagerViewAdapter mPagerAdapter;
 
     // configurable attributes
@@ -46,19 +38,15 @@ public class CarouselViewPager extends ViewPager {
     private boolean animateSelection;
     // margin between pages
     private int pageMargin;
-    // width of active page, will pad active page with remaining width
-    private int pageWidth;
 
     // parent view to attach breadcrumbs to
     private ViewGroup breadcrumbContainer;
+    // holds the breadcrumb view
     private BreadcrumbToast breadcrumbToast;
 
     // time to scroll between pages, in ms
     static final int SCROLL_SPEED = 300;
 
-    // listener for when a page is scrolled to
-    OnPageSelectListener onPageSelectListener;
-    OnPageChangeListener onPageChangeListener;
     // listener for when user presses select on an item
     OnItemSelectedListener onItemSelectedListener;
 
@@ -66,7 +54,7 @@ public class CarouselViewPager extends ViewPager {
      * Simplified onPageChangeListener, called when there is a new active page
      */
     public interface OnPageSelectListener {
-        void onPageSelected(int position);
+        void onPageSelected(CarouselItem item, int position);
     }
     /**
      * Called when the select button pressed on the active page
@@ -86,29 +74,23 @@ public class CarouselViewPager extends ViewPager {
             showBreadcrumbs = a.getBoolean(R.styleable.CarouselViewPager_showBreadcrumbs, true);
             animateSelection = a.getBoolean(R.styleable.CarouselViewPager_animateSelection, false);
             pageMargin = a.getDimensionPixelSize(R.styleable.CarouselViewPager_pageMargin, 0);
-            pageWidth = a.getDimensionPixelSize(R.styleable.CarouselViewPager_pageWidth, 250);
         } finally {
             a.recycle();
         }
         init();
     }
 
-    @Override
-    protected void onSizeChanged(int width, int height, int oldWidth, int oldHeight) {
-        super.onSizeChanged(width, height, oldWidth, oldHeight);
-
-        int horizontalPadding = (width-pageWidth)/2;
-        setPadding(horizontalPadding, 0, horizontalPadding, 0);
-    }
 
     public void init() {
         setPageMargin(pageMargin);
         setClipToPadding(false);
+        this.setClipChildren(false);
+        this.setOffscreenPageLimit(3);
 
         // Use reflection to set fixed scroll speed
         Interpolator sInterpolator = new DecelerateInterpolator();
         try {
-            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+            Field mScroller = CenterAlignViewPager.class.getDeclaredField("mScroller");
             mScroller.setAccessible(true);
             FixedSpeedScroller scroller = new FixedSpeedScroller(getContext(), sInterpolator, SCROLL_SPEED);
             mScroller.set(this, scroller);
@@ -116,25 +98,9 @@ public class CarouselViewPager extends ViewPager {
             Log.e(TAG, e.getMessage());
         }
 
-        super.setOnPageChangeListener(new OnPageChangeListener() {
+        addOnPageSelectListener(new OnPageSelectListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (onPageChangeListener != null)
-                    onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if (onPageChangeListener != null)
-                    onPageChangeListener.onPageScrollStateChanged(state);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (onPageChangeListener != null)
-                    onPageChangeListener.onPageSelected(position);
-                if (onPageSelectListener != null)
-                    onPageSelectListener.onPageSelected(position);
+            public void onPageSelected(CarouselItem item, int position) {
                 CarouselViewPager.this.onPageSelected(position);
             }
         });
@@ -148,13 +114,23 @@ public class CarouselViewPager extends ViewPager {
         this.breadcrumbContainer = breadcrumbContainer;
     }
 
-    @Override
-    public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
-        this.onPageChangeListener = onPageChangeListener;
+    /*
+     * Add a listener to be called when a new page has become active, simplified form of onPageChangeListener
+     * that ignores scroll events
+     */
+    public void addOnPageSelectListener(final OnPageSelectListener onPageSelectListener) {
+        super.addOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+            @Override
+            public void onPageSelected(int position) {
+                onPageSelectListener.onPageSelected(getCarouselAdapter().getCarouselItem(position),position);
+            }
+        });
     }
-    public void setOnPageSelectListener(OnPageSelectListener onPageSelectListener) {
-        this.onPageSelectListener = onPageSelectListener;
-    }
+
     public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
         this.onItemSelectedListener = onItemSelectedListener;
     }
@@ -198,19 +174,25 @@ public class CarouselViewPager extends ViewPager {
         setContents(Arrays.asList(items));
     }
     public void setContents(List<? extends CarouselItem> items){
-        mPagerAdapter = new CarouselPagerViewAdapter(getContext(),items);
-        initializeContents(items.size());
+        setAdapter(new CarouselPagerViewAdapter(getContext(),items,this));
     }
 
-    private void initializeContents(int numItems) {
-        setAdapter((PagerAdapter)mPagerAdapter);
-
+    public void setAdapter(CarouselPagerViewAdapter adapter) {
+        super.setAdapter(adapter);
+        mPagerAdapter = adapter;
+        initBreadcrumbs();
+        setSelection(0);
+    }
+    private void initBreadcrumbs() {
+        int numItems = mPagerAdapter.getCount();
         if(showBreadcrumbs&&numItems>=MIN_NUM_FRAGMENTS_TO_SHOW_BREADCRUMBS) {
             breadcrumbToast = new BreadcrumbToast(getContext(),breadcrumbContainer,true,numItems);
         }
-        setSelection(0);
     }
 
+    /*
+     * Scroll the carousel to the specified index
+     */
     public void setSelection(int selection) {
         setCurrentItem(selection);
         onPageSelected(selection);

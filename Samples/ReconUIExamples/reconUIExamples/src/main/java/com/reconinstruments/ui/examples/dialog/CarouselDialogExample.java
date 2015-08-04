@@ -30,7 +30,7 @@ public class CarouselDialogExample extends CarouselDialog implements DialogBuild
         }
         @Override
         public int getLayoutId() {
-            return R.layout.carousel_item_hidden_checkmark;
+            return R.layout.carousel_item_checkmark_selector;
         }
     }
 
@@ -43,9 +43,9 @@ public class CarouselDialogExample extends CarouselDialog implements DialogBuild
     public void onStart() {
         super.onStart();
         setOnItemSelectedListener(onItemSelectedListener);
-        getCarousel().setOnPageSelectListener(new CarouselViewPager.OnPageSelectListener() {
+        getCarousel().addOnPageSelectListener(new CarouselViewPager.OnPageSelectListener() {
             @Override
-            public void onPageSelected(int position) {
+            public void onPageSelected(CarouselItem item, int position) {
                 updateView();
             }
         });

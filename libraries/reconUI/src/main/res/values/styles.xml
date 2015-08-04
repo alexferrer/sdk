@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
 	<!-- text -->
 	<style name="recon_jet_text_primary">
 		<item name="android:textColor">@color/recon_jet_text_primary</item>
 		<item name="android:textSize">30dp</item>
 		<item name="android:ellipsize">end</item>
-		<item name="android:lines">1</item>
 	</style>
 	<style name="recon_jet_text_secondary" parent="recon_jet_text_primary">
 		<item name="android:textColor">@color/recon_jet_text_secondary</item>

@@ -1,5 +1,6 @@
 package com.reconinstruments.ui.examples.list;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 import com.reconinstruments.ui.examples.R;
@@ -19,7 +20,7 @@ public class ListWithInfoActivity extends SimpleListActivity {
     public SimpleListItem getToggleListInfoItem(String text,boolean enabled, final String infoText) {
         return new ToggleListItem(text, enabled) {
             @Override
-            public void onSelected() {
+            public void onSelected(Context context) {
                 infoTV.setText(infoText);
             }
         };
@@ -27,31 +28,22 @@ public class ListWithInfoActivity extends SimpleListActivity {
     public SimpleListItem getDefaultListInfoItem(String text,String subText, final String infoText) {
         return new StandardListItem(text, subText) {
             @Override
-            public void onSelected() {
+            public void onSelected(Context context) {
                 infoTV.setText(infoText);
             }
         };
     }
 
-    SimpleListItem[] items = {
-            getToggleListInfoItem("GPS Always On",true,"GPS Always On"),
-            getDefaultListInfoItem("Record Length","15 sec","Video Camera Record Length"),
-            getDefaultListInfoItem("Battery Level","95%","Battery Level")
-    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.list_view_with_info);
+        setContents(
+                getToggleListInfoItem("GPS Always On",true,"GPS Always On"),
+                getDefaultListInfoItem("Record Length","15 sec","Video Camera Record Length"),
+                getDefaultListInfoItem("Battery Level","95%","Battery Level")
+        );
         infoTV = (TextView) findViewById(R.id.info_text);
     }
 
-    @Override
-    public List<SimpleListItem> createContents() {
-        return Arrays.asList(items);
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.list_view_with_info;
-    }
 }

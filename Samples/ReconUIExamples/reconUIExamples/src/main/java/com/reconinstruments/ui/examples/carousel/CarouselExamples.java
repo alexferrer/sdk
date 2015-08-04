@@ -3,6 +3,7 @@ package com.reconinstruments.ui.examples.carousel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import com.reconinstruments.ui.examples.R;
 import com.reconinstruments.ui.list.SimpleListActivity;
 import com.reconinstruments.ui.list.SimpleListItem;
 import com.reconinstruments.ui.list.StandardListItem;
@@ -18,25 +19,18 @@ public class CarouselExamples extends SimpleListActivity {
             super(text);
             this.activityClass = activityClass;
         }
-        public void onClick() {
-            Context context = CarouselExamples.this;
+        public void onClick(Context context) {
             context.startActivity(new Intent(context, activityClass));
         }
     }
 
-    SimpleListItem[] items = {
-            new ListItem("Image Carousel",ImageCarousel.class),
-            new ListItem("Stat Carousel",StatCarousel.class)
-
-    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public List<SimpleListItem> createContents() {
-        return Arrays.asList(items);
+        setContentView(R.layout.list_standard_layout);
+        setContents(
+                new ListItem("Image Carousel",ImageCarousel.class),
+                new ListItem("Stat Carousel",StatCarousel.class)
+        );
     }
 }

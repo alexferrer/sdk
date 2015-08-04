@@ -2,6 +2,7 @@ package com.reconinstruments.camerasample;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.media.CamcorderProfile;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -49,6 +50,11 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
 	public void refreshCamera() {
 		try {
+			CamcorderProfile profile = VideoRecorder.camProfile;
+			Camera.Parameters parameters = mCamera.getParameters();
+			parameters.setPreviewSize(profile.videoFrameWidth,profile.videoFrameHeight);
+			mCamera.setParameters(parameters);
+
 			mCamera.setPreviewDisplay(mHolder);
 			mCamera.startPreview();
 		} catch (Exception e) {

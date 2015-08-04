@@ -31,6 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_above="@id/subtitle"
-        auto:pageWidth="240px"
         auto:showBreadcrumbs="false"/>
+
 </RelativeLayout>

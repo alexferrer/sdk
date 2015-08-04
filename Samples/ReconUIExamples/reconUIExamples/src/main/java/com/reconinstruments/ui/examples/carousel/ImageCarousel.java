@@ -32,6 +32,7 @@ public class ImageCarousel extends CarouselActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carousel_host);
+        getCarousel().setPageMargin(30);
         getCarousel().setContents(
                 new ImageCarouselItem("New Activity",R.drawable.carousel_icon_newactivity),
                 new ImageCarouselItem("My Apps",R.drawable.carousel_icon_myapps),

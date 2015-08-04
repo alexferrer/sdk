@@ -34,8 +34,8 @@ public class StandardCarouselItem extends CarouselItem {
     }
 
     public void updateView(View view) {
-        UIUtils.setOptionalText(title, view, R.id.title);
-        UIUtils.setOptionalImage(icon, view, R.id.icon);
+        UIUtils.setOptionalText(getTitle(), view, R.id.title);
+        UIUtils.setOptionalImage(getIcon(), view, R.id.icon);
     }
 
     public String getTitle() {return title;}
