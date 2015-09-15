@@ -1,0 +1,45 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30px">
+
+        <Button
+            android:id="@+id/PASSIVE"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Passive" />
+
+        <Button
+            android:id="@+id/INTERACTIVE"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Interactive" />
+
+        <Button
+            android:id="@+id/PASSIVE_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="5 x Passive" />
+
+        <Button
+            android:id="@+id/INTERACTIVE_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="5 x Interactive" />
+
+        <Button
+            android:id="@+id/PIPIP"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="PIPIP (Mix)" />
+
+    </LinearLayout>
+
+</ScrollView>
