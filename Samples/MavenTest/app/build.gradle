@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'Recon Instruments:Recon Instruments SDK Add-On:16'
+    compileSdkVersion 16
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.reconinstruments.notificationdemo"
+        applicationId "com.reconinstruments.maventest"
         minSdkVersion 16
         targetSdkVersion 16
         versionCode 1
@@ -22,8 +22,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:22.2.1'
 
-    compile files('libs/com.reconinstruments.os.jar')
-    compile 'com.reconinstruments.app:recon-application:1.0.0'
-    compile 'com.reconinstruments.ui:recon-ui:1.0.0'
-    //compile 'com.reconinstruments.os:recon-jet-platform:1.0.0'
+    compile 'com.reconinstruments.app:recon-application:2.0.0'
+    compile 'com.reconinstruments.os:recon-jet-platform:2.0.0'
+    compile 'com.reconinstruments.ui:recon-ui:2.0.0'
 }

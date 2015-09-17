@@ -2,9 +2,7 @@
 
 buildscript {
     repositories {
-        maven {
-            url "http://repo.reconinstruments.com/artifactory/libs-release-local"
-        }
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.2.3'
@@ -17,7 +15,7 @@ buildscript {
 allprojects {
     repositories {
         maven {
-            url "http://repo.reconinstruments.com/artifactory/libs-release-local"
+            url "http://repo.reconinstruments.com/artifactory/libs-release"
         }
     }
 }
