@@ -38,11 +38,6 @@
                 android:layout_height="wrap_content"
                 android:text="ExternalSensor" />
 
-            <Button
-                android:id="@+id/buttonRunningCadence"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="RunningCadence" />
         </LinearLayout>
     </ScrollView>
 

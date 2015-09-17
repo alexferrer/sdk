@@ -30,13 +30,10 @@ public class ExternalSensorModel implements MetricsValueChangedListener{
     public void onResume() {
         try {
             mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.HEART_RATE);
-            mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.POWER_CADENCE);
             mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.SPEED_CADENCE_CADENCE);
             mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.SPEED_CADENCE_SPEED);
             mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.SPEED_EXT);
             mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.CADENCE_EXT);
-            mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.POWER);
-            mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.POWER_SPEED);
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
@@ -45,13 +42,10 @@ public class ExternalSensorModel implements MetricsValueChangedListener{
     public void onPause() {
         try {
             mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.HEART_RATE);
-            mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.POWER_CADENCE);
             mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.SPEED_CADENCE_CADENCE);
             mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.SPEED_CADENCE_SPEED);
             mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.SPEED_EXT);
             mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.CADENCE_EXT);
-            mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.POWER);
-            mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.POWER_SPEED);
         } catch (RuntimeException e) {
             e.printStackTrace();
         }

@@ -34,7 +34,6 @@ public class AltitudeModel implements MetricsValueChangedListener{
         try {
             mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.ALTITUDE_CALIBRATED);
             mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.ALTITUDE_PRESSURE);
-            mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.ALTITUDE_DELTA);
         } catch (RuntimeException e) {
             e.printStackTrace();
         }
@@ -44,7 +43,6 @@ public class AltitudeModel implements MetricsValueChangedListener{
         try {
             mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.ALTITUDE_CALIBRATED);
             mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.ALTITUDE_PRESSURE);
-            mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.ALTITUDE_DELTA);
         } catch (RuntimeException e) {
             e.printStackTrace();
         }

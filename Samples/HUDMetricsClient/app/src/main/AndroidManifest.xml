@@ -38,9 +38,6 @@
         <activity
             android:name="com.example.hudmetricsclient.ExternalSensorActivity"
             android:screenOrientation="landscape"></activity>
-        <activity
-            android:name="com.example.hudmetricsclient.RunningCadenceActivity"
-            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

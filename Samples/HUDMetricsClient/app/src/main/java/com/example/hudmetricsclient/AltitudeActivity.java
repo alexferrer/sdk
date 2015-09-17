@@ -6,10 +6,10 @@ import android.widget.TextView;
 
 import com.reconinstruments.os.metrics.HUDMetricsID;
 
-public class AltitudeActivity extends Activity {
+public class AltitudeActivity extends Activity
+{
     MetricView mPressureAlt = null;
     MetricView mCalAlt = null;
-    MetricView mDeltaAlt = null;
 
     AltitudeModel mAltitudeModel;
 
@@ -20,7 +20,6 @@ public class AltitudeActivity extends Activity {
 
         mPressureAlt = new MetricView((TextView)findViewById(R.id.AltitudePressureCurrent), (TextView)findViewById(R.id.AltitutdePressurePrevious));
         mCalAlt = new MetricView((TextView)findViewById(R.id.AltitudeCalibratedCurrent), (TextView)findViewById(R.id.AltitudeCalibratedPrevious));
-        mDeltaAlt = new MetricView((TextView)findViewById(R.id.AltitudeDeltaCurrent), (TextView)findViewById(R.id.AltitudeDeltaPrevious));
 
         mAltitudeModel = new AltitudeModel(this);
     }
@@ -47,9 +46,6 @@ public class AltitudeActivity extends Activity {
     private MetricView GetData(int metricID) {
         if(metricID == HUDMetricsID.ALTITUDE_CALIBRATED){
             return mCalAlt;
-        }
-        else if(metricID == HUDMetricsID.ALTITUDE_DELTA){
-            return mDeltaAlt;
         }
         else if(metricID == HUDMetricsID.ALTITUDE_PRESSURE){
             return mPressureAlt;

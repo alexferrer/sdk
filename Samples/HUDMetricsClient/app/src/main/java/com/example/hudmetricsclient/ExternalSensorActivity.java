@@ -9,13 +9,10 @@ import com.reconinstruments.os.metrics.HUDMetricsID;
 public class ExternalSensorActivity extends Activity {
 
     MetricView mHeartRate = null;
-    MetricView mPowerCadence = null;
     MetricView mSpeedCadenceCadence = null;
     MetricView mSpeedCadenceSpeed = null;
     MetricView mSpeed = null;
     MetricView mCadence = null;
-    MetricView mPower = null;
-    MetricView mPowerSpeed = null;
 
     ExternalSensorModel mExternalSensorModel;
 
@@ -27,13 +24,10 @@ public class ExternalSensorActivity extends Activity {
         setContentView(R.layout.activity_extsensors);
 
         mHeartRate = new MetricView((TextView)findViewById(R.id.HeartRateCurrent), (TextView)findViewById(R.id.HeartRatePrevious));
-        mPowerCadence = new MetricView((TextView)findViewById(R.id.PowerCadenceCurrent), (TextView)findViewById(R.id.PowerCadencePrevious));
         mSpeedCadenceCadence = new MetricView((TextView)findViewById(R.id.SpeedCadenceCadenceCurrent), (TextView)findViewById(R.id.SpeedCadenceCadencePrevious));
         mSpeedCadenceSpeed = new MetricView((TextView)findViewById(R.id.SpeedCadenceSpeedCurrent), (TextView)findViewById(R.id.SpeedCadenceSpeedPrevious));
         mSpeed = new MetricView((TextView)findViewById(R.id.SpeedOnlyCurrent), (TextView)findViewById(R.id.SpeedOnlyPrevious));
         mCadence = new MetricView((TextView)findViewById(R.id.CadenceOnlyCurrent), (TextView)findViewById(R.id.CadenceOnlyPrevious));
-        mPower = new MetricView((TextView)findViewById(R.id.PowerCurrent), (TextView)findViewById(R.id.PowerPrevious));
-        mPowerSpeed = new MetricView((TextView)findViewById(R.id.PowerSpeedCurrent), (TextView)findViewById(R.id.PowerSpeedPrevious));
 
         mExternalSensorModel = new ExternalSensorModel(this);
     }
@@ -64,8 +58,6 @@ public class ExternalSensorActivity extends Activity {
     private MetricView GetData(int metricID) {
         if (metricID == HUDMetricsID.HEART_RATE) {
             return mHeartRate;
-        } else if (metricID == HUDMetricsID.POWER_CADENCE) {
-            return mPowerCadence;
         } else if (metricID == HUDMetricsID.SPEED_CADENCE_CADENCE) {
             return mSpeedCadenceCadence;
         } else if (metricID == HUDMetricsID.SPEED_CADENCE_SPEED) {
@@ -74,10 +66,6 @@ public class ExternalSensorActivity extends Activity {
             return mSpeed;
         } else if (metricID == HUDMetricsID.CADENCE_EXT) {
             return mCadence;
-        } else if (metricID == HUDMetricsID.POWER) {
-            return mPower;
-        } else if (metricID == HUDMetricsID.POWER_SPEED) {
-            return mPowerSpeed;
         }
         return null;
     }

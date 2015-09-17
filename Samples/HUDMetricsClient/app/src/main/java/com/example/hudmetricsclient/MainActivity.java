@@ -18,7 +18,6 @@ public class MainActivity extends Activity implements OnClickListener {
     private Button mSpeedButton;
     private Button mGradeButton;
     private Button mExternalSensorButton;
-    private Button mRunningCadenceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +28,10 @@ public class MainActivity extends Activity implements OnClickListener {
         mSpeedButton = (Button) findViewById(R.id.buttonSpeed);
         mGradeButton = (Button) findViewById(R.id.buttonGrade);
         mExternalSensorButton = (Button) findViewById(R.id.buttonExternalSensor);
-        mRunningCadenceButton = (Button) findViewById(R.id.buttonRunningCadence);
         mAltButton.setOnClickListener(this);
         mSpeedButton.setOnClickListener(this);
         mGradeButton.setOnClickListener(this);
         mExternalSensorButton.setOnClickListener(this);
-        mRunningCadenceButton.setOnClickListener(this);
     }
 
     @Override
@@ -75,10 +72,6 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.buttonExternalSensor:
                 Intent externlSensorIntent = new Intent(getApplicationContext(), ExternalSensorActivity.class);
                 startActivity(externlSensorIntent);
-                break;
-            case R.id.buttonRunningCadence:
-                Intent runningcadenceIntent = new Intent(getApplicationContext(), RunningCadenceActivity.class);
-                startActivity(runningcadenceIntent);
                 break;
         }
     }
