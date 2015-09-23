@@ -10,6 +10,7 @@ buildscript {
 
 allprojects {
     repositories {
+        jcenter()
         maven {
             url "http://repo.reconinstruments.com/artifactory/libs-release"
         }

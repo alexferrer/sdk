@@ -6,15 +6,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/scanButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Scan" />
-
     <LinearLayout
         android:id="@+id/network"
-        android:layout_below="@id/scanButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <Button
@@ -22,7 +15,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:onClick="setBle"
             android:text="BLE"
             android:textSize="10sp"/>
         <Button
@@ -30,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:onClick="setAnt"
             android:text="ANT"
             android:textSize="10sp"/>
     </LinearLayout>

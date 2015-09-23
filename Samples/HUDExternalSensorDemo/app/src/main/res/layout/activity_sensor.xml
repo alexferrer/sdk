@@ -3,18 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <Button
         android:id="@+id/connectButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="doConnect"
         android:text="Connect" />
-
-    <Button
-        android:id="@+id/calibrateButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="doCalibrate"
-        android:text="Calibrate" />
 
 </LinearLayout>
