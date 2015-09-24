@@ -47,7 +47,7 @@ public class MainActivity extends Activity {
         synchronized (mButtons)
         {
             int size = mButtons.size();
-            for (int i =0; i < size ; i++)
+            for(int i = 0; i < size; i++)
             {
                 int uid = mButtons.keyAt(i);
                 Button button = mButtons.get(uid);
@@ -65,9 +65,9 @@ public class MainActivity extends Activity {
         try{ savedListConnectionParams = mHUDExternalSensorManager.getSavedSensorConnectionParams(type); }
         catch(RuntimeException e){ e.printStackTrace(); }
 
-        if (savedListConnectionParams != null)
+        if(savedListConnectionParams != null)
         {
-            for (ExternalSensorConnectionParams connectionParams : savedListConnectionParams)
+            for(ExternalSensorConnectionParams connectionParams : savedListConnectionParams)
             {
                 // Create the button for the saved device
                 addView(connectionParams.getName(), connectionParams.getSensorType().name(), connectionParams.getUID());
@@ -82,8 +82,8 @@ public class MainActivity extends Activity {
                 catch(RuntimeException e){ e.printStackTrace(); }
 
                 // Color the button depending on its connected state
-                if(isConnected){ changeColorWithID(connectionParams.getUID(), Color.GREEN); }
-                else           { changeColorWithID(connectionParams.getUID(), Color.RED);   }
+                if(isConnected){ setButtonTextColorByID(connectionParams.getUID(), Color.GREEN); }
+                else           { setButtonTextColorByID(connectionParams.getUID(), Color.RED);   }
             }
         }
         else { Log.d(TAG, "No saved list..."); }
@@ -105,7 +105,7 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
-    public void changeColorWithID(int uid, int color)
+    public void setButtonTextColorByID(int uid, int color)
     {
         Button button = mButtons.get(uid);
         if(button != null){ button.setTextColor(color); }
@@ -119,6 +119,7 @@ public class MainActivity extends Activity {
         button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         button.setTextColor(Color.BLACK);
         button.setOnClickListener(mListOnClickListener);
+
         mListLinearLayout.addView(button);
         mButtons.put(uid, button);
     }
