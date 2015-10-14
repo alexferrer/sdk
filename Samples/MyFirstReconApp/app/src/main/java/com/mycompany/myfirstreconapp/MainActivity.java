@@ -12,8 +12,6 @@ import com.reconinstruments.os.metrics.MetricsValueChangedListener;
 import android.app.Notification;
 import android.app.NotificationManager;
 
-import com.reconinstruments.os.hardware.sensors.
-
 public class MainActivity extends Activity implements MetricsValueChangedListener
 {
     HUDMetricsManager mHUDMetricsManager;
