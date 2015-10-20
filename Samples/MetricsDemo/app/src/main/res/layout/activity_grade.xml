@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:stretchColumns="0,1,2"
-    tools:context="com.example.hudmetricsclient.AltitudeActivity" >
+    tools:context="com.example.metricsdemo.GradeActivity" >
 
     <TableRow
         android:layout_width="fill_parent"
@@ -53,12 +53,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/PressureAlt"
+            android:text="@string/Grade"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#c27427" />
 
         <TextView
-            android:id="@+id/AltitudePressureCurrent"
+            android:id="@+id/GradeCurrent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -66,7 +66,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/AltitutdePressurePrevious"
+            android:id="@+id/GradePrevious"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -77,43 +77,4 @@
     <View
         android:layout_height="2dip"
         android:background="#FF909090" />
-
-    <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/CalibratedAlt"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#c27427" />
-
-        <TextView
-            android:id="@+id/AltitudeCalibratedCurrent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/DASH"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/AltitudeCalibratedPrevious"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/DASH"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <View
-        android:layout_height="2dip"
-        android:background="#FF909090" />
-
-    <View
-        android:layout_height="2dip"
-        android:background="#FF909090" />
-
 </TableLayout>

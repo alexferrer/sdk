@@ -18,25 +18,33 @@
                 android:id="@+id/buttonAlt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Altitude" />
+                android:text="Altitude"
+                android:textSize="28dp"
+                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/buttonSpeed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Speed" />
+                android:text="Speed"
+                android:textSize="28dp"
+                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/buttonGrade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Grade" />
+                android:text="Grade"
+                android:textSize="28dp"
+                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/buttonExternalSensor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ExternalSensor" />
+                android:text="ExternalSensor"
+                android:textSize="28dp"
+                android:textStyle="bold"/>
 
         </LinearLayout>
     </ScrollView>

@@ -1,8 +1,5 @@
-package com.example.hudmetricsclient;
+package com.reconinstruments.metricsdemo;
 
-import android.content.ComponentName;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.util.Log;
 
 import com.reconinstruments.os.HUDOS;

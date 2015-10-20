@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:stretchColumns="0,1,2"
-    tools:context="com.example.hudmetricsclient.DistanceActivity" >
+    tools:context="com.example.metricsdemo.DistanceActivity" >
 
     <TableRow
         android:id="@+id/tableRow1"

@@ -1,4 +1,4 @@
-package com.example.hudmetricsclient;
+package com.reconinstruments.metricsdemo;
 
 import android.util.Log;
 
