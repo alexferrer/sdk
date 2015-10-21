@@ -7,58 +7,52 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.util.Log;
 
 import com.reconinstruments.app.activity.HUDActivityStatus;
 
 public class ActivityService extends IntentService
 {
+    public static boolean isRunning = false;
     private BroadcastReceiver mReceiver;
     private NotificationManager mNotificationManager;
     private Intent mIntent;
 
-    public ActivityService(){ super("ActivityService"); }
+    public ActivityService()
+    {
+        super("ActivityService");
+    }
 
     @Override
-    protected void onHandleIntent(Intent intent){ }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        mReceiver = new BroadcastReceiver() {
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+        mReceiver = new BroadcastReceiver()
+        {
             @Override
-            public void onReceive(Context context, Intent intent) {
-                int type = intent.getIntExtra(HUDActivityStatus.ACTIVITY_TYPE, HUDActivityStatus.TYPE_UNKNOWN);
+            public void onReceive(Context context, Intent intent)
+            {
+                int type   = intent.getIntExtra(HUDActivityStatus.ACTIVITY_TYPE,   HUDActivityStatus.TYPE_UNKNOWN);
                 int status = intent.getIntExtra(HUDActivityStatus.ACTIVITY_STATUS, HUDActivityStatus.STATUS_UNKNOWN);
-                createNotification("Activity - " + getTypeString(type), "Status: " + getStatusString(status));
+                createNotification("Activity: " + getTypeString(type) + ", Status: " + getStatusString(status));
             }
         };
         mIntent = registerReceiver(mReceiver, new IntentFilter(HUDActivityStatus.ACTIVITY_INTENT_FILTER));
 
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        /*
-        (new Thread(new Runnable() {
+        createNotification("Activity Status Service: STARTED");
+        ActivityService.isRunning = true;
 
-            @Override
-            public void run() {
-                while (!Thread.interrupted())
-                    try {
-                        createNotification("Activity Status Service", "STATE: RUNNING");
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                    }
-            }
-        })).start();
-        */
+        // We want this service to continue running until it is explicitly stopped, so return sticky.
+        return START_STICKY;
     }
 
     @Override
     public void onDestroy()
     {
-        super.onDestroy();
+        createNotification("Activity Status Service: STOPPED");
         unregisterReceiver(mReceiver);
+        ActivityService.isRunning = false;
+        super.onDestroy();
     }
 
     private String getStatusString(int status)
@@ -66,13 +60,13 @@ public class ActivityService extends IntentService
         switch(status)
         {
             case HUDActivityStatus.STATUS_NOACTIVITY :
-                return "STATUS_NOACTIVITY";
+                return "NO-ACTIVITY";
             case HUDActivityStatus.STATUS_ONGOING :
-                return "STATUS_ONGOING";
+                return "ON-GOING";
             case HUDActivityStatus.STATUS_PAUSED :
-                return "STATUS_PAUSED";
+                return "PAUSED";
             default:
-                return "STATUS_UNKNOWN";
+                return "UNKNOWN";
         }
     }
 
@@ -81,23 +75,26 @@ public class ActivityService extends IntentService
         switch(type)
         {
             case HUDActivityStatus.TYPE_CYCLING :
-                return "TYPE_CYCLING";
+                return "CYCLING";
             case HUDActivityStatus.TYPE_RUNNING :
-                return "TYPE_RUNNING";
+                return "RUNNING";
             case HUDActivityStatus.TYPE_SKI :
-                return "TYPE_SKI";
+                return "SKIING";
             default:
-                return "TYPE_UNKNOWN";
+                return "UNKNOWN";
         }
     }
 
-    private void createNotification(String title, String content)
+    private void createNotification(String text)
     {
         Notification notification = new Notification.Builder(getApplicationContext())
-                .setContentTitle(title)
+                .setContentTitle("Activity Status Service")
                 .setSmallIcon(R.drawable.icon_checkmark)
-                .setContentText(content)
+                .setContentText(text)
                 .build();
         mNotificationManager.notify(0, notification);
     }
+
+    @Override
+    protected void onHandleIntent(Intent intent){ }
 }

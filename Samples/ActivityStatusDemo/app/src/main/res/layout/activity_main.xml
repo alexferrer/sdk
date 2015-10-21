@@ -15,8 +15,8 @@
         android:layout_height="50dp" />
 
     <TextView
-        android:id="@+id/activity_status_text"
-        android:text="ACTIVITY STATUS"
+        android:id="@+id/top_text"
+        android:text="--"
         android:textSize="28dp"
         android:textStyle="bold"
         android:layout_width="match_parent"
@@ -28,8 +28,8 @@
         android:layout_height="18dp" />
 
     <TextView
-        android:id="@+id/activity_type_text"
-        android:text="ACTIVITY TYPE"
+        android:id="@+id/bottom_text"
+        android:text="--"
         android:textSize="28dp"
         android:textStyle="bold"
         android:layout_width="match_parent"
