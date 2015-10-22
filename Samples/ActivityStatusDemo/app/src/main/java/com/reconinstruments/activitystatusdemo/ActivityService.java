@@ -15,7 +15,6 @@ public class ActivityService extends IntentService
     public static boolean isRunning = false;
     private BroadcastReceiver mReceiver;
     private NotificationManager mNotificationManager;
-    private Intent mIntent;
 
     public ActivityService()
     {
@@ -35,7 +34,7 @@ public class ActivityService extends IntentService
                 createNotification("Activity: " + getTypeString(type) + ", Status: " + getStatusString(status));
             }
         };
-        mIntent = registerReceiver(mReceiver, new IntentFilter(HUDActivityStatus.ACTIVITY_INTENT_FILTER));
+        registerReceiver(mReceiver, new IntentFilter(HUDActivityStatus.ACTIVITY_INTENT_FILTER));
 
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 

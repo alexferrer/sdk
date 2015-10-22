@@ -11,6 +11,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements ServiceConnection
 {
     private Intent mService;
+    private TextView topText;
+    private TextView botText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -18,8 +20,14 @@ public class MainActivity extends Activity implements ServiceConnection
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView topText = (TextView) findViewById(R.id.top_text);
-        TextView botText = (TextView) findViewById(R.id.bottom_text);
+        topText = (TextView) findViewById(R.id.top_text);
+        botText = (TextView) findViewById(R.id.bottom_text);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
 
         // Bind to ActivityService
         mService = new Intent(this, ActivityService.class);
@@ -30,23 +38,24 @@ public class MainActivity extends Activity implements ServiceConnection
         if(ActivityService.isRunning)
         {
             stopService(mService);
-            unbindService(this);
             topText.setText("Service: STOPPED");
+            topText.setTextColor(0xFFFF5555);
             botText.setText("(Run the app again to START the service)");
         }
         else // If no activity status service is running, we start one.
         {
             startService(mService);
             topText.setText("Service: STARTED");
+            topText.setTextColor(0xFF55FF55);
             botText.setText("(Run the app again to STOP the service)");
         }
     }
 
     @Override
-    public void onDestroy()
+    public void onPause()
     {
+        super.onPause();
         unbindService(this);
-        super.onDestroy();
     }
 
     @Override

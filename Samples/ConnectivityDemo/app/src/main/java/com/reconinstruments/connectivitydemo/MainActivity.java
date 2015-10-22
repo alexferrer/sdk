@@ -82,18 +82,19 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
     }
 
     @Override
-    public void onStart()
+    public void onResume()
     {
-        super.onStart();
-        //registering the IHUDConnectivity to HUDConnectivityManager
+        super.onResume();
+        // Register the IHUDConnectivity to HUDConnectivityManager
         mHUDConnectivityManager.register(this);
     }
 
     @Override
-    public void onStop(){
-        //unregistering the IHUDConnectivity from HUDConnectivityManager
+    public void onPause()
+    {
+        // Unregister the IHUDConnectivity from HUDConnectivityManager
         mHUDConnectivityManager.unregister(this);
-        super.onStop();
+        super.onPause();
     }
 
     @Override

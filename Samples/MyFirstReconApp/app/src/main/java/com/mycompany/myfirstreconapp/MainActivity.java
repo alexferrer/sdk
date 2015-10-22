@@ -36,11 +36,24 @@ public class MainActivity extends Activity implements MetricsValueChangedListene
         speedVrtTextView = (TextView) findViewById(R.id.speedTextView);
         speedVrtTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 52);
 
-        mHUDMetricsManager = (HUDMetricsManager) HUDOS.getHUDService(HUDOS.HUD_METRICS_SERVICE);
+        mHUDMetricsManager   = (HUDMetricsManager) HUDOS.getHUDService(HUDOS.HUD_METRICS_SERVICE);
+        mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
         mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.ALTITUDE_PRESSURE);
         mHUDMetricsManager.registerMetricsListener(this, HUDMetricsID.SPEED_VERTICAL);
+    }
 
-        mNotificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.ALTITUDE_PRESSURE);
+        mHUDMetricsManager.unregisterMetricsListener(this, HUDMetricsID.SPEED_VERTICAL);
     }
 
     @Override

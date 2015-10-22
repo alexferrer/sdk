@@ -34,6 +34,12 @@ public class SensorActivity extends Activity implements ExternalSensorListener {
 
         mConnectButton = (Button)findViewById(R.id.connectButton);
         mStatusText    = (TextView)findViewById(R.id.statusText);
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
 
         final int ERROR_UID = -1;
         Intent intent = getIntent();
@@ -52,12 +58,14 @@ public class SensorActivity extends Activity implements ExternalSensorListener {
     }
 
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
         mHUDExternalSensorManager.unregisterListener(this);
     }
 
-    private void init() {
+    private void init()
+    {
         mHUDExternalSensorManager.registerListener(this);
 
         boolean isConnected = mHUDExternalSensorManager.isSensorConnected(mUid);
