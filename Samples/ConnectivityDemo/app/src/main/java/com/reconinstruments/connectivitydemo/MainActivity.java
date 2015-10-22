@@ -2,11 +2,11 @@ package com.reconinstruments.connectivitydemo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.reconinstruments.os.HUDOS;
 import com.reconinstruments.os.connectivity.HUDConnectivityManager;
@@ -17,18 +17,17 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
     private static final String TAG = "MainActivity";
     private HUDConnectivityManager mHUDConnectivityManager = null;
 
-    private Button mConnectDevice;
+    private TextView mConnectDevice;
+    private TextView mHUDConnected;
+    private TextView mLocalWeb;
+    private TextView mRemoteWeb;
     private Button mDownloadFile;
     private Button mUploadFile;
     private Button mDownloadImage;
-    private Button mHUDConnectedTV;
-    private Button mLocalWebTV;
-    private Button mRemoteWebTV;
 
-    private final int MMUL    = 0xFFFFFFFF;
-    private final int MRED    = 0xFFFF0000;
-    private final int MORANGE = 0xFFFF6600;
-    private final int MGREEN  = 0xFFFFFF00;
+    private final int COL_RED    = 0xAAFF0000;
+    private final int COL_ORANGE = 0xAAFF6600;
+    private final int COL_GREEN  = 0xAA00FF00;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,24 +35,23 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get Button + Other graphical components
-        mDownloadFile = (Button) findViewById(R.id.download_file_button);
-        mUploadFile = (Button) findViewById(R.id.upload_file_button);
+        // Get view references (from activity_main.xml)
+        mConnectDevice = (TextView) findViewById(R.id.connected_device);
+        mHUDConnected  = (TextView) findViewById(R.id.hud_connected);
+        mLocalWeb      = (TextView) findViewById(R.id.local_web_connected);
+        mRemoteWeb     = (TextView) findViewById(R.id.remote_web_connected);
+
+        mDownloadFile  = (Button) findViewById(R.id.download_file_button);
+        mUploadFile    = (Button) findViewById(R.id.upload_file_button);
         mDownloadImage = (Button) findViewById(R.id.load_image_button);
-        mConnectDevice = (Button) findViewById(R.id.connected_device);
-        mHUDConnectedTV = (Button) findViewById(R.id.hud_connected);
-        mLocalWebTV = (Button) findViewById(R.id.local_web_connected);
-        mRemoteWebTV = (Button) findViewById(R.id.remote_web_connected);
 
         mDownloadFile.setOnClickListener(this);
         mUploadFile.setOnClickListener(this);
         mDownloadImage.setOnClickListener(this);
-        mConnectDevice.setOnClickListener(this);
 
         mDownloadFile.setEnabled(false);
         mUploadFile.setEnabled(false);
         mDownloadImage.setEnabled(false);
-
 
         //Get an instance of HUDConnectivityManager
         mHUDConnectivityManager = (HUDConnectivityManager) HUDOS.getHUDService(HUDOS.HUD_CONNECTIVITY_SERVICE);
@@ -63,18 +61,18 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
             finish();
         }
 
-        setColorFilter(mHUDConnectedTV, MRED);
-        setColorFilter(mLocalWebTV, MRED);
-        setColorFilter(mRemoteWebTV, MRED);
+        setViewColor(mHUDConnected, COL_RED);
+        setViewColor(mLocalWeb, COL_RED);
+        setViewColor(mRemoteWeb, COL_RED);
         if(mHUDConnectivityManager.isHUDConnected())
         {
             Log.d(TAG, "HUD is connected.");
-            mHUDConnectedTV.setText("HUD Connected");
+            mHUDConnected.setText("HUD Connected");
         }
         else
         {
             Log.d(TAG, "HUD is disconnected.");
-            mHUDConnectedTV.setText("HUD Disconnected");
+            mHUDConnected.setText("HUD Disconnected");
         }
 
         // !!!! -------- IMPORTANT NOTICE -------- !!!! //
@@ -123,23 +121,23 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
     @Override
     public void onConnectionStateChanged(ConnectionState state)
     {
-        Log.d(TAG,"onConnectionStateChanged : state:" + state);
+        Log.d(TAG, "onConnectionStateChanged : state:" + state);
         switch (state) {
             case LISTENING:
-                mHUDConnectedTV.setText("HUD Listening");
-                setColorFilter(mHUDConnectedTV, MRED);
+                mHUDConnected.setText("HUD Listening");
+                setViewColor(mHUDConnected, COL_RED);
                 break;
             case CONNECTED:
-                mHUDConnectedTV.setText("Phone Connected");
-                setColorFilter(mHUDConnectedTV, MGREEN);
+                mHUDConnected.setText("Phone Connected");
+                setViewColor(mHUDConnected, COL_GREEN);
                 break;
             case CONNECTING:
-                mHUDConnectedTV.setText("Phone Connecting");
-                setColorFilter(mHUDConnectedTV, MORANGE);
+                mHUDConnected.setText("Phone Connecting");
+                setViewColor(mHUDConnected, COL_ORANGE);
                 break;
             case DISCONNECTED:
-                mHUDConnectedTV.setText("Phone Disconnected");
-                setColorFilter(mHUDConnectedTV, MRED);
+                mHUDConnected.setText("Phone Disconnected");
+                setViewColor(mHUDConnected, COL_RED);
                 break;
             default:
                 Log.e(TAG,"onConnectionStateChanged() with unknown state:" + state);
@@ -150,24 +148,31 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
     @Override
     public void onNetworkEvent(NetworkEvent networkEvent, boolean hasNetworkAccess)
     {
-        Log.d(TAG, "onNetworkEvent : networkEvent:" + networkEvent + " hasNetworkAccess:" + hasNetworkAccess);
         switch (networkEvent) {
             case LOCAL_WEB_GAINED:
-                setColorFilter(mLocalWebTV, MGREEN);
+                mLocalWeb.setText("Local Web: ON");
+                setViewColor(mLocalWeb, COL_GREEN);
                 break;
             case LOCAL_WEB_LOST:
-                setColorFilter(mLocalWebTV, MRED);
+                mLocalWeb.setText("Local Web: OFF");
+                setViewColor(mLocalWeb, COL_RED);
                 break;
             case REMOTE_WEB_GAINED:
-                setColorFilter(mRemoteWebTV, MGREEN);
+                mRemoteWeb.setText("Remote Web: ON");
+                setViewColor(mRemoteWeb, COL_GREEN);
                 break;
             case REMOTE_WEB_LOST:
-                setColorFilter(mRemoteWebTV, MRED);
+                mRemoteWeb.setText("Remote Web: OFF");
+                setViewColor(mRemoteWeb, COL_RED);
                 break;
             default:
                 Log.e(TAG,"onNetworkEvent() with unknown networkEvent:" + networkEvent);
                 break;
         }
+
+        Log.d(TAG, "onNetworkEvent() - networkEvent: " + networkEvent + ", hasNetworkAccess: " + hasNetworkAccess);
+        Log.d(TAG, "onNetworkEvent() - getDeviceName(): " + mHUDConnectivityManager.getDeviceName() + ", hasLocalWeb(): " + mHUDConnectivityManager.hasLocalWeb() + ", hasRemoteWeb(): " + mHUDConnectivityManager.hasRemoteWeb());
+
         mDownloadFile.setEnabled(hasNetworkAccess);
         mUploadFile.setEnabled(hasNetworkAccess);
         mDownloadImage.setEnabled(hasNetworkAccess);
@@ -176,12 +181,21 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
     @Override
     public void onDeviceName(String deviceName)
     {
-        Log.d(TAG,"onDeviceName : deviceName:" + deviceName);
-        mConnectDevice.setText(deviceName);
+        Log.d(TAG,"onDeviceName(deviceName: " + deviceName + ")");
+        if(deviceName.length() > 0)
+        {
+            mConnectDevice.setText(deviceName);
+            setViewColor(mConnectDevice, COL_GREEN);
+        }
+        else
+        {
+            mConnectDevice.setText("<NO DEVICE>");
+            setViewColor(mConnectDevice, COL_RED);
+        }
     }
 
-    private void setColorFilter(View view, int color)
+    private void setViewColor(View view, int color)
     {
-        view.getBackground().setColorFilter(new LightingColorFilter(MMUL, color));
+        view.setBackgroundColor(color);
     }
 }

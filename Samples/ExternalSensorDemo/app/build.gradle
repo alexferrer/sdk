@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.reconinstruments.hudexternalsensordemo"
+        applicationId "com.reconinstruments.externalsensordemo"
     }
 
     buildTypes {
@@ -19,7 +19,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:22.2.1'
 
-    provided 'com.reconinstruments.os:recon-jet-platform:2.0.0'
-    compile 'com.reconinstruments.app:recon-application:2.0.0'
-    compile 'com.reconinstruments.ui:recon-ui:2.0.0'
+    compile 'com.reconinstruments.app:recon-application:4.3.0'
+    compile 'com.reconinstruments.ui:recon-ui:4.3.0'
+    provided 'com.reconinstruments.os:recon-platform:4.3.0'
 }

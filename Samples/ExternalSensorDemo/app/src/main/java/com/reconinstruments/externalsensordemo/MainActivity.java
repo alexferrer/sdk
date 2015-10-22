@@ -1,4 +1,4 @@
-package com.reconinstruments.hudexternalsensordemo;
+package com.reconinstruments.externalsensordemo;
 
 import android.app.Activity;
 import android.content.Context;

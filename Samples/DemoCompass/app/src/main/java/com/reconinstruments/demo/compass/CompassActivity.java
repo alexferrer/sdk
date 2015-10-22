@@ -92,7 +92,7 @@ public class CompassActivity extends Activity implements HeadLocationListener {
 
 		mUserHeading = (float) ((4.0*mUserHeading + newHeading)/5.0); // smooth heading
 
-		if(mUserHeading < 0.0f) mUserHeading += 360.0f;
+		if(mUserHeading < 000.0f) mUserHeading += 360.0f;
 		if(mUserHeading > 360.0f) mUserHeading -= 360.0f;
 
 

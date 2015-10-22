@@ -78,7 +78,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 .setContentTitle("passive title " + i)
                 .setSmallIcon(R.drawable.ic_launcher_share)
                 .setContentText("passive text " + i)
-                        //.setTicker("passive ticker " + i)
                 .build();
         mNotificationManager.notify(0, notification);
     }
