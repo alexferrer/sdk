@@ -172,7 +172,12 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
         }
 
         Log.d(TAG, "onNetworkEvent() - networkEvent: " + networkEvent + ", hasNetworkAccess: " + hasNetworkAccess);
-        Log.d(TAG, "onNetworkEvent() - getDeviceName(): " + mHUDConnectivityManager.getDeviceName() + ", hasLocalWeb(): " + mHUDConnectivityManager.hasLocalWeb() + ", hasRemoteWeb(): " + mHUDConnectivityManager.hasRemoteWeb());
+        Log.d(TAG, "onNetworkEvent() - getDeviceName(): " + mHUDConnectivityManager.getDeviceName() +
+                ", isHUDConnected(): " + mHUDConnectivityManager.isHUDConnected() +
+                ", hasLocalWeb(): " + mHUDConnectivityManager.hasLocalWeb() +
+                ", hasRemoteWeb(): " + mHUDConnectivityManager.hasRemoteWeb() +
+                ", hasWebConnection(): " + mHUDConnectivityManager.hasWebConnection() +
+                ", getConnectionState(): " + mHUDConnectivityManager.getConnectionState());
 
         mDownloadFile.setEnabled(hasNetworkAccess);
         mUploadFile.setEnabled(hasNetworkAccess);
@@ -183,7 +188,7 @@ public class MainActivity extends Activity implements View.OnClickListener, IHUD
     public void onDeviceName(String deviceName)
     {
         Log.d(TAG,"onDeviceName(deviceName: " + deviceName + ")");
-        if(deviceName.length() > 0)
+        if(deviceName != null && deviceName.length() > 0)
         {
             mConnectDevice.setText(deviceName);
             setViewColor(mConnectDevice, COL_GREEN);
