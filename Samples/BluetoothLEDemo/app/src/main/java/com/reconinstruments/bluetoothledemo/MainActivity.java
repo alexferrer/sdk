@@ -76,7 +76,7 @@ public class MainActivity extends Activity
 
         if(mExtSensorManager.getHUDNetworkType() == ExternalSensorConnectionParams.ExternalSensorNetworkType.ANT)
         {
-            //Log.e(TAG, "JET is in ANT+ MODE! Needs to be changed to BLE (in settings menu)");
+            Log.e(TAG, "JET is in ANT+ MODE! Needs to be changed to BLE (in settings menu)");
             finish();
             return;
         }
