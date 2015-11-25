@@ -49,7 +49,8 @@ public class MainActivity extends Activity
     private HashMap<Button, BluetoothDevice> buttonDeviceHash = new HashMap<Button, BluetoothDevice>();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_main);
