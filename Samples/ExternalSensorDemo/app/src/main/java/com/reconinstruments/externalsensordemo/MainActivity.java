@@ -3,8 +3,6 @@ package com.reconinstruments.externalsensordemo;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,15 +33,12 @@ public class MainActivity extends Activity implements ExternalSensorListener
 
     public static HUDExternalSensorManager mExternalSensorManager;
     private NotificationManager mNotificationManager;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mContext = this;
 
         sensorModeText = (TextView) findViewById(R.id.sensorModeText);
         mListLinearLayout = (LinearLayout)findViewById(R.id.listLinerLayout);
@@ -59,7 +54,7 @@ public class MainActivity extends Activity implements ExternalSensorListener
 
         mExternalSensorManager.registerListener(this);
 
-        // Show which sensor type is in use (ANT+ or BLE)
+        // Get the current sensor mode in use (ANT+ or BLE)
         ExternalSensorConnectionParams.ExternalSensorNetworkType type = mExternalSensorManager.getHUDNetworkType();
         boolean isModeANT = (type == ExternalSensorConnectionParams.ExternalSensorNetworkType.ANT);
         sensorModeText.setText(isModeANT ? "ANT+" : "BLE");
@@ -92,7 +87,6 @@ public class MainActivity extends Activity implements ExternalSensorListener
     public void onPause()
     {
         super.onPause();
-
         mExternalSensorManager.unregisterListener(this);
     }
 
@@ -101,7 +95,7 @@ public class MainActivity extends Activity implements ExternalSensorListener
         Button button = new Button(MainActivity.this);
         button.setText(params.getName() + (mExternalSensorManager.isSensorConnected(params.getUID()) ? " <ON>" : " <OFF>"));
         button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        button.setTextColor(Color.BLACK);
+        //button.setTextColor(Color.BLACK);
         button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
         button.setOnClickListener(onClickListener);
 
@@ -163,6 +157,7 @@ public class MainActivity extends Activity implements ExternalSensorListener
         Log.d(TAG, "Sensor " + sensorConnection + " failed to connect");
         Button b = uidButtonHash.get(sensorConnection.getUID());
         updateSensorButton(sensorConnection.getUID(), buttonParamHash.get(b).getName() + " <OFF>");
+        createNotification(buttonParamHash.get(b).getName() + " failed to connect");
     }
 
     private void updateSensorButton(int uuid, String text) {
