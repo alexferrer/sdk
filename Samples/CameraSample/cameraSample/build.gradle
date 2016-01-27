@@ -23,6 +23,6 @@ android {
 }
 
 dependencies {
-    compile project(':reconUI')
+    compile 'com.reconinstruments.ui:recon-ui:4.3.1'
     compile 'com.android.support:support-v4:18.0.0'
 }
