@@ -1,28 +1,23 @@
 package com.reconinstruments.ui.examples.dialog;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 import com.reconinstruments.ui.carousel.CarouselItem;
 import com.reconinstruments.ui.carousel.CarouselViewPager;
 import com.reconinstruments.ui.carousel.StandardCarouselItem;
 import com.reconinstruments.ui.dialog2.CarouselDialog;
-import com.reconinstruments.ui.dialog2.ReconDialog;
 import com.reconinstruments.ui.examples.R;
 
 import java.util.Arrays;
 
-/**
- * Created by chris on 06/05/15.
- */
-public class CarouselDialogExample extends CarouselDialog implements ReconDialog.Builder.ViewCallback {
+public class CarouselDialogExample extends CarouselDialog {
 
     static CarouselItem[] selections = {
             new CheckedSelectionItem("Option 1"),
             new CheckedSelectionItem("Option 2"),
             new CheckedSelectionItem("Option 3")
     };
-    OnItemSelectedListener onItemSelectedListener;
 
     public static class CheckedSelectionItem extends StandardCarouselItem {
         public CheckedSelectionItem(String title) {
@@ -34,14 +29,8 @@ public class CarouselDialogExample extends CarouselDialog implements ReconDialog
         }
     }
 
-    public CarouselDialogExample(FragmentActivity context,int initialSelection,OnItemSelectedListener onItemSelectedListener) {
-        super(context,R.layout.custom_carousel_host, Arrays.asList(selections), initialSelection);
-        this.onItemSelectedListener = onItemSelectedListener;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
+    public CarouselDialogExample(Activity context, int initialSelection, OnItemSelectedListener onItemSelectedListener) {
+        super(context, R.layout.custom_carousel_host, Arrays.asList(selections), initialSelection);
         setOnItemSelectedListener(onItemSelectedListener);
         getCarousel().addOnPageSelectListener(new CarouselViewPager.OnPageSelectListener() {
             @Override
@@ -56,8 +45,7 @@ public class CarouselDialogExample extends CarouselDialog implements ReconDialog
         TextView titleView = (TextView) view.findViewById(R.id.title);
 
         StandardCarouselItem item = (StandardCarouselItem) getCarousel().getCurrentCarouselItem();
-        //StandardCarouselItem item = (StandardCarouselItem) itemFragment.getItem();
-        int position = getCarousel().getCurrentItem();//itemFragment.getPosition();
+        int position = getCarousel().getCurrentItem();
         titleView.setText(item.getTitle());
 
         TextView subtitleView = (TextView) view.findViewById(R.id.subtitle);

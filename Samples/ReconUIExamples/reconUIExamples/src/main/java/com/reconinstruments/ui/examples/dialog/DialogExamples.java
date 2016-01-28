@@ -12,13 +12,13 @@ import com.reconinstruments.ui.dialog2.ReconDialog;
 import com.reconinstruments.ui.dialog2.CarouselDialog;
 import com.reconinstruments.ui.examples.R;
 import com.reconinstruments.ui.list.SimpleListActivity;
-import com.reconinstruments.ui.list.SimpleListItem;
 import com.reconinstruments.ui.list.StandardListItem;
 
 import java.util.Arrays;
-import java.util.List;
 
-
+/**
+ * TODO: documentation
+ */
 public class DialogExamples extends SimpleListActivity {
 
     public class ListItem extends StandardListItem {
@@ -70,6 +70,11 @@ public class DialogExamples extends SimpleListActivity {
                         createProgressDialog();
                     }
                 }),
+                new ListItem("Custom View Dialog",new OnClickCallback() {
+                    public void onClick(ListItem item) {
+                        createCustomViewDialog();
+                    }
+                }),
                 new ListItem("Custom Selection Dialog",new OnClickCallback() {
                     public void onClick(ListItem item) {
                         createCustomSelectionDialog(item);
@@ -89,18 +94,15 @@ public class DialogExamples extends SimpleListActivity {
             super(title);
             this.value = value;
         }
-
         @Override
         public void updateView(View view) {
             super.updateView(view);
             view.findViewById(R.id.checkmark).setVisibility(value==timeSelection?View.VISIBLE:View.INVISIBLE);
         }
-
         @Override
         public int getLayoutId() {
             return R.layout.carousel_item_checkmark;
         }
-
     }
 
     public int timeSelection = 0;
@@ -148,6 +150,17 @@ public class DialogExamples extends SimpleListActivity {
         }).createDialog().show();
     }
 
+    public void createCustomViewDialog() {
+        new ReconDialog.Builder(this).setLayout(R.layout.dialog_custom_layout)
+                .setViewCallback(new ReconDialog.Builder.ViewCallback() {
+            @Override
+            public void updateView(View view) {
+                ((TextView)findViewById(R.id.text1)).setText("Title");
+                ((TextView)findViewById(R.id.text2)).setText("Subtitle 1");
+                ((TextView)findViewById(R.id.text3)).setText("Subtitle 2");
+            }
+        }).createDialog().show();
+    }
 
     int optionSelected = 0;
     public void createCustomSelectionDialog(final ListItem listItem) {
