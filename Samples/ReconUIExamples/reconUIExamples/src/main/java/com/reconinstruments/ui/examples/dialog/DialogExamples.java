@@ -17,7 +17,7 @@ import com.reconinstruments.ui.list.StandardListItem;
 import java.util.Arrays;
 
 /**
- * TODO: documentation
+ * Shows examples of creating a variety of different dialog types
  */
 public class DialogExamples extends SimpleListActivity {
 
@@ -107,6 +107,10 @@ public class DialogExamples extends SimpleListActivity {
 
     public int timeSelection = 0;
 
+    /**
+     * Create a new dialog for selecting from a list of items
+     * then displaying the selection result in the main list view
+     */
     public void createSelectionDialog(final ListItem listItem) {
 
         CarouselDialog.Builder builder = new CarouselDialog.Builder(this).setTitle("Timeout");
@@ -121,17 +125,27 @@ public class DialogExamples extends SimpleListActivity {
         builder.createDialog().show();
     }
 
+    /**
+     * Create a dialog that appears for 2 seconds then is automatically dismissed
+     */
     private void createPopupDialog() {
         new ReconDialog.Builder(this).setTitle("Warning").setSubtitle("Showing for 2 seconds")
                 .setShowStatusBarTheme()
                 .setWarningIcon().setDismissTimeout().createDialog().show();
     }
 
+    /**
+     * Create a static dialog box that uses a custom layout
+     */
     private void createBasicDialog() {
         new ReconDialog.Builder(this).setTitle("DIALOG").setSubtitle("subtitle")
                 .setLayout(R.layout.action_bar_dialog).createDialog().show();
     }
 
+    /**
+     * Create a progress indicator dialog box
+     * Pressing select simulates
+     */
     private void createProgressDialog() {
         new ReconDialog.Builder(this).setTitle("Loading").setSubtitle("(press select to finish)")
                 .showProgress().setOnKeyListener(new ReconDialog.OnKeyListener() {
@@ -150,6 +164,10 @@ public class DialogExamples extends SimpleListActivity {
         }).createDialog().show();
     }
 
+    /**
+     * Create a dialog with a custom view callback, in order to set more view parameters than can be set
+     * by the standard view callback (more than title, subtitle, icon)
+     */
     public void createCustomViewDialog() {
         new ReconDialog.Builder(this).setLayout(R.layout.dialog_custom_layout)
                 .setViewCallback(new ReconDialog.Builder.ViewCallback() {
@@ -163,6 +181,11 @@ public class DialogExamples extends SimpleListActivity {
     }
 
     int optionSelected = 0;
+
+    /**
+     * Create a dialog that uses it's own dialog class, allowing greater customization to the Dialog lifecycle
+     * or more reusable code
+     */
     public void createCustomSelectionDialog(final ListItem listItem) {
         new CarouselDialogExample(this,optionSelected,new CarouselDialog.OnItemSelectedListener() {
             @Override
