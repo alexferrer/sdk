@@ -1,8 +1,11 @@
 package com.reconinstruments.ui.examples.carousel;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import com.reconinstruments.ui.carousel.CarouselActivity;
@@ -10,6 +13,7 @@ import com.reconinstruments.ui.carousel.CarouselItem;
 import com.reconinstruments.ui.carousel.CarouselPagerViewAdapter;
 import com.reconinstruments.ui.examples.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +52,7 @@ public class StatCarousel extends CarouselActivity {
                 typeText.setVisibility(View.GONE);
         }
     }
+    float distance = 34.5f;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,10 +62,22 @@ public class StatCarousel extends CarouselActivity {
         TextView title = (TextView)findViewById(R.id.title);
         title.setText("ALL TIME BEST");
 
+        final ListItem distanceItem = new ListItem(new DecimalFormat("#.#").format(distance), "km", "DISTANCE");
         getCarousel().setContents(
-                new ListItem("34.5", "km", "DISTANCE"),
+                distanceItem,
                 new ListItem("51.12", "/km", "AVG. PACE"),
                 new ListItem("14", "cal", "CALORIES BURNED"),
                 new ListItem("5:50", "", "DURATION"));
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                distance += 0.1;
+                distanceItem.value = new DecimalFormat("#.#").format(distance);
+                distanceItem.updateView();
+                handler.postDelayed(this,1000);
+            }
+        }, 1000);
     }
 }
