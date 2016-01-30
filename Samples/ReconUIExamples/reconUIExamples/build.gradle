@@ -8,6 +8,8 @@ android {
         applicationId "com.reconinstruments.ui.examples"
         minSdkVersion 16
         targetSdkVersion 16
+
+        manifestPlaceholders = [ SDK_VERSION:"1" ]
     }
 
     buildTypes {
@@ -23,6 +25,6 @@ android {
 }
 
 dependencies {
-    compile 'com.reconinstruments.ui:recon-ui:4.3.1'
+    compile project(':reconUI')
     compile 'com.android.support:support-v4:18.0.0'
 }

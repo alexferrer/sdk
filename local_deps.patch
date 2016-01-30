@@ -1,0 +1,39 @@
+From 8b884f3b999623e5addbcade3b327ba1ab7d3dfe Mon Sep 17 00:00:00 2001
+From: Chris Tolliday <ctolliday@gmail.com>
+Date: Thu, 28 Jan 2016 15:50:16 +0100
+Subject: [PATCH] DON'T PUSH: local deps for reconui
+
+---
+ Samples/ReconUIExamples/reconUIExamples/build.gradle | 2 +-
+ Samples/settings.gradle                              | 5 +++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/Samples/ReconUIExamples/reconUIExamples/build.gradle b/Samples/ReconUIExamples/reconUIExamples/build.gradle
+index c2d69aa..20d345a 100644
+--- a/Samples/ReconUIExamples/reconUIExamples/build.gradle
++++ b/Samples/ReconUIExamples/reconUIExamples/build.gradle
+@@ -23,6 +23,6 @@ android {
+ }
+ 
+ dependencies {
+-    compile 'com.reconinstruments.ui:recon-ui:4.3.1'
++    compile project(':reconUI')
+     compile 'com.android.support:support-v4:18.0.0'
+ }
+diff --git a/Samples/settings.gradle b/Samples/settings.gradle
+index c1508cd..bee3408 100644
+--- a/Samples/settings.gradle
++++ b/Samples/settings.gradle
+@@ -8,3 +8,8 @@ include ':MetricsDemo:app'
+ include ':MyFirstReconApp:app'
+ include ':NotificationDemo:app'
+ include ':ReconUIExamples:reconUIExamples'
++
++include 'reconUI'
++project(':reconUI').projectDir = new File('/home/chris/dev/recon/limo_apps/sdk/libraries/reconUI')
++include 'reconApplication'
++project(':reconApplication').projectDir = new File('/home/chris/dev/recon/limo_apps/libraries/reconApplication')
+\ No newline at end of file
+-- 
+2.5.0
+

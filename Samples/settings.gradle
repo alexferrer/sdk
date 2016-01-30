@@ -8,3 +8,26 @@ include ':MetricsDemo:app'
 include ':MyFirstReconApp:app'
 include ':NotificationDemo:app'
 include ':ReconUIExamples:reconUIExamples'
+
+def local_libs = ''
+
+include 'reconUI'
+project(':reconUI').projectDir = new File(local_libs+'/sdk/libraries/reconUI')
+
+include 'reconApplication'
+project(':reconApplication').projectDir = new File(local_libs+'/libraries/reconApplication')
+
+include 'Android_MobileSDK:RemoteKeyboard:library'
+project(':Android_MobileSDK:RemoteKeyboard:library').projectDir = new File(local_libs+'/Android_MobileSDK/RemoteKeyboard/library')
+
+include 'Android_MobileSDK:RemoteKeyboard:library'
+project(':Android_MobileSDK:RemoteKeyboard:library').projectDir = new File(local_libs+'/Android_MobileSDK/RemoteKeyboard/library')
+
+include ':Android_MobileSDK:ReconHUDServiceHelper'
+project(':Android_MobileSDK:ReconHUDServiceHelper').projectDir = new File(local_libs+'/Android_MobileSDK/ReconHUDServiceHelper')
+
+include ':Android_MobileSDK:CommonUtil'
+project(':Android_MobileSDK:CommonUtil').projectDir = new File(local_libs+'/Android_MobileSDK/CommonUtil')
+
+include ':Android_MobileSDK:HUDConnectivity'
+project(':Android_MobileSDK:HUDConnectivity').projectDir = new File(local_libs+'/Android_MobileSDK/HUDConnectivity')
