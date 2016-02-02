@@ -15,6 +15,7 @@
         <activity android:name=".carousel.CarouselExamples"/>
         <activity android:name=".carousel.ImageCarousel"/>
         <activity android:name=".carousel.StatCarousel"/>
+        <activity android:name=".carousel.VerticalCarousel"/>
         <activity android:name=".list.ListExamples"/>
         <activity android:name=".list.ListWithInfoActivity"
                   android:theme="@style/ReconTheme.Fullscreen"/>

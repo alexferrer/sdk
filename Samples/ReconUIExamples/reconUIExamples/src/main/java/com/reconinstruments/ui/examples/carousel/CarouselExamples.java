@@ -30,7 +30,8 @@ public class CarouselExamples extends SimpleListActivity {
         setContentView(R.layout.list_standard_layout);
         setContents(
                 new ListItem("Image Carousel",ImageCarousel.class),
-                new ListItem("Stat Carousel",StatCarousel.class)
+                new ListItem("Stat Carousel",StatCarousel.class),
+                new ListItem("Vertical Carousel",VerticalCarousel.class)
         );
     }
 }
