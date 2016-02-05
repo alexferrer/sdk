@@ -5,11 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.reconinstruments.ui.examples.R;
 import com.reconinstruments.ui.list.SimpleListActivity;
-import com.reconinstruments.ui.list.SimpleListItem;
 import com.reconinstruments.ui.list.StandardListItem;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class CarouselExamples extends SimpleListActivity {
 
@@ -31,7 +27,8 @@ public class CarouselExamples extends SimpleListActivity {
         setContents(
                 new ListItem("Image Carousel",ImageCarousel.class),
                 new ListItem("Stat Carousel",StatCarousel.class),
-                new ListItem("Vertical Carousel",VerticalCarousel.class)
+                new ListItem("Vertical Carousel",VerticalCarousel.class),
+                new ListItem("Carousel Events",CarouselEvents.class)
         );
     }
 }
