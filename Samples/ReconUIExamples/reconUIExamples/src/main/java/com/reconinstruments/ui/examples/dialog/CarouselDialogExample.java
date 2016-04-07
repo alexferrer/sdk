@@ -6,8 +6,8 @@ import android.widget.TextView;
 import com.reconinstruments.ui.carousel.CarouselItem;
 import com.reconinstruments.ui.carousel.CarouselViewPager;
 import com.reconinstruments.ui.carousel.StandardCarouselItem;
-import com.reconinstruments.ui.dialog.CarouselDialog;
-import com.reconinstruments.ui.dialog.DialogBuilder;
+import com.reconinstruments.ui.dialog2.CarouselDialog;
+import com.reconinstruments.ui.dialog2.ReconDialog;
 import com.reconinstruments.ui.examples.R;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 /**
  * Created by chris on 06/05/15.
  */
-public class CarouselDialogExample extends CarouselDialog implements DialogBuilder.ViewCallback {
+public class CarouselDialogExample extends CarouselDialog implements ReconDialog.Builder.ViewCallback {
 
     static CarouselItem[] selections = {
             new CheckedSelectionItem("Option 1"),

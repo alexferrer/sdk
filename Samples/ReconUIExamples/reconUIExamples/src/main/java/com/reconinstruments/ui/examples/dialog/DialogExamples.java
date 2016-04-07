@@ -8,9 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.reconinstruments.ui.carousel.CarouselItem;
 import com.reconinstruments.ui.carousel.StandardCarouselItem;
-import com.reconinstruments.ui.dialog.BaseDialog;
-import com.reconinstruments.ui.dialog.CarouselDialog;
-import com.reconinstruments.ui.dialog.DialogBuilder;
+import com.reconinstruments.ui.dialog2.ReconDialog;
+import com.reconinstruments.ui.dialog2.CarouselDialog;
 import com.reconinstruments.ui.examples.R;
 import com.reconinstruments.ui.list.SimpleListActivity;
 import com.reconinstruments.ui.list.SimpleListItem;
@@ -108,29 +107,34 @@ public class DialogExamples extends SimpleListActivity {
 
     public void createSelectionDialog(final ListItem listItem) {
 
-        DialogBuilder builder = new DialogBuilder(this).setTitle("Timeout");
-        builder.createSelectionDialog(Arrays.asList(selections), timeSelection, new CarouselDialog.OnItemSelectedListener() {
+        CarouselDialog.Builder builder = new CarouselDialog.Builder(this).setTitle("Timeout");
+        builder.setItems(Arrays.asList(selections)).setInitialSelection(timeSelection);
+        builder.setOnSelectedListener(new CarouselDialog.OnItemSelectedListener() {
             @Override
             public void onItemSelected(CarouselDialog dialog, CarouselItem item, int position) {
                 listItem.setSubtitle(((StandardCarouselItem) item).getTitle());
                 timeSelection = position;
                 dialog.dismiss();
-            }
-        }).show();
+            }});
+        builder.createDialog().show();
     }
 
     private void createPopupDialog() {
-        new DialogBuilder(this).setTitle("Warning").setSubtitle("Showing for 2 seconds").setWarningIcon().setDismissTimeout().createDialog().show();
+        new ReconDialog.Builder(this).setTitle("Warning").setSubtitle("Showing for 2 seconds")
+                .setShowStatusBarTheme()
+                .setWarningIcon().setDismissTimeout().createDialog().show();
     }
 
     private void createBasicDialog() {
-        new DialogBuilder(this).setTitle("DIALOG").setSubtitle("subtitle").setLayout(R.layout.action_bar_dialog).createDialog().show();
+        new ReconDialog.Builder(this).setTitle("DIALOG").setSubtitle("subtitle")
+                .setLayout(R.layout.action_bar_dialog).createDialog().show();
     }
 
     private void createProgressDialog() {
-        new DialogBuilder(this).setTitle("Loading").setSubtitle("(press select to finish)").showProgress().setOnKeyListener(new BaseDialog.OnKeyListener() {
+        new ReconDialog.Builder(this).setTitle("Loading").setSubtitle("(press select to finish)")
+                .showProgress().setOnKeyListener(new ReconDialog.OnKeyListener() {
             @Override
-            public boolean onKey(BaseDialog dialog, int keyCode, KeyEvent event) {
+            public boolean onKey(ReconDialog dialog, int keyCode, KeyEvent event) {
                 if (event.getAction()==KeyEvent.ACTION_UP&&keyCode==KeyEvent.KEYCODE_DPAD_CENTER) {
                     ImageView icon = (ImageView)dialog.getView().findViewById(R.id.icon);
                     icon.setImageResource(R.drawable.icon_checkmark);
