@@ -20,8 +20,7 @@ import java.util.TimeZone;
  */
 public class StorageUtils {
 
-    public static final String DIRECTORY =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath()+"/Camera";
+    public static final String DIRECTORY = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath();
 
     public static final String JPEG = ".jpg";
     public static final String MP4 = ".mp4";
