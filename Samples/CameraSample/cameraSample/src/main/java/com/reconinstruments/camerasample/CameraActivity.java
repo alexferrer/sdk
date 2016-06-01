@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.media.CamcorderProfile;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class CameraActivity extends CarouselActivity {
     FrameLayout modeSwitchView;
 
     VideoRecorder activeVideo;
+    CamcorderProfile profile;
 
     SimpleDateFormat recordTimeFormatter = new SimpleDateFormat("mm:ss", Locale.getDefault());
 
@@ -54,6 +56,13 @@ public class CameraActivity extends CarouselActivity {
         preview = (CameraPreview) findViewById(R.id.preview);
         recordingTimeView = (TextView) findViewById(R.id.recording_time);
         modeSwitchView = (FrameLayout) findViewById(R.id.mode_switcher);
+
+        try{
+            profile = CamcorderProfile.get(CamcorderProfile.QUALITY_720P);
+        } catch(RuntimeException e){
+            profile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+        }
+
     }
 
     // use onkeyup rather than CarouselItem.onClick for videoItem because the onClick event won't
@@ -88,12 +97,12 @@ public class CameraActivity extends CarouselActivity {
     PictureCallback jpegSavedCallback = new PictureCallback() {
         public void onPictureTaken(byte[] data, Camera camera) {
             StorageUtils.insertJpeg(CameraActivity.this,data,System.currentTimeMillis());
-            preview.setCamera(camera);
+            preview.setCamera(camera, profile);
         }
     };
 
     private void startRecording() {
-        activeVideo = new VideoRecorder(CameraActivity.this, camera);
+        activeVideo = new VideoRecorder(CameraActivity.this, camera, profile);
         activeVideo.startRecording();
 
         recordingTimeView.setVisibility(View.VISIBLE);
@@ -137,7 +146,7 @@ public class CameraActivity extends CarouselActivity {
             Toast.makeText(this, "Failed to open camera", Toast.LENGTH_SHORT).show();
         }
         if(camera!=null)
-            preview.setCamera(camera);
+            preview.setCamera(camera, profile);
     }
 
     public void closeCamera() {

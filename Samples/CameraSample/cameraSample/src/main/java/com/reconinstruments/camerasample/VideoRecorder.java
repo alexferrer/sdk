@@ -14,11 +14,9 @@ import java.io.IOException;
  * Created by chris on 28/05/15.
  */
 public class VideoRecorder {
-
     private static final String TAG = "VideoRecorder";
 
-    public static int MAX_DURATION = 15;
-    public static CamcorderProfile camProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_720P);
+    public static final int MAX_DURATION = 15;
 
     ContentValues videoValues;
     String tmpVideoFile;
@@ -26,12 +24,14 @@ public class VideoRecorder {
 
     Activity activity;
     Camera camera;
+    CamcorderProfile profile;
     MediaRecorder mediaRecorder;
 
-    public VideoRecorder(Activity activity, Camera camera) {
+    public VideoRecorder(Activity activity, Camera camera, CamcorderProfile profile) {
         this.activity = activity;
         this.camera = camera;
-        videoValues = StorageUtils.getVideoData(camProfile,recordingStartTime);
+        this.profile = profile;
+        videoValues = StorageUtils.getVideoData(profile,recordingStartTime);
         tmpVideoFile = StorageUtils.getVideoPath(videoValues)+".tmp";
         prepareMediaRecorder(tmpVideoFile);
     }
@@ -73,7 +73,7 @@ public class VideoRecorder {
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 
-        mediaRecorder.setProfile(camProfile);
+        mediaRecorder.setProfile(profile);
 
         mediaRecorder.setOutputFile(fileName);
         mediaRecorder.setMaxDuration(MAX_DURATION * 1000);
