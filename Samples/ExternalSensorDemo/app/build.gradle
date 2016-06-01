@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 16
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.reconinstruments.externalsensordemo"
@@ -21,9 +21,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:22.2.1'
-
-    compile 'com.reconinstruments.app:recon-application:4.3.1'
-    compile 'com.reconinstruments.ui:recon-ui:4.3.1'
-    provided 'com.reconinstruments.os:recon-platform:4.3.1'
+    compile 'com.reconinstruments.app:recon-application:4.4.0'
+    compile 'com.reconinstruments.ui:recon-ui:4.4.0'
+    provided 'com.reconinstruments.os:recon-platform:4.4.0'
 }
