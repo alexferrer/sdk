@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:stretchColumns="0,1,2"
-    tools:context="com.example.metricsdemo.SpeedActivity" >
+    tools:context=".SpeedActivity" >
 
     <TableRow
         android:id="@+id/tableRow1"
