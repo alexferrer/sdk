@@ -1,22 +1,9 @@
 # SDK
-Recon SDK related files
+Recon SDK Samples and related files
 
-Windows 8 adb drivers and latest Lollipop Ubuntu/Windows executables:
-http://www.reconinstruments.com/wp-content/recon-sdk/adb.zip
+To get started with the Recon SDK, go to http://www.reconinstruments.com/developers/develop/
 
-For Eclipse projects (not needed for gradle projects):
-
-First time only to get the SDK Add-On:
-- Open the Android SDK Manager
-- Click on Tools
-- Select Manage Add-Ons site
-- Select User Defined Sites
-- Select New and add: http://www.reconinstruments.com/wp-content/recon-sdk/repository.xml
-- Click close
-- Scroll Down to API-16 and check "Recon Instruments"
-- Select to download the add-on
-
-- In the project properties, under Android, select "Recon Instruments SDK"
+For an overview of available Samples, see http://www.reconinstruments.com/developers/develop/sample-apps-overview/
 
 # Setting up an emulator
 
@@ -24,7 +11,7 @@ Copy Tools/devices.xml into your local .android directory
 
 Windows: 
     C:\Users\[User Name]\.android
-Linux, Max OS: 
+Linux, Mac OS: 
     ~/.android
 
 if you have previous user defined device definitions you want to keep, you'll have to manually merge the device tag into your existing devices.xml
@@ -46,5 +33,7 @@ close the Android Virtual Device Manager
 From your IDE, you can now start an emulator from your IDEs android virtual device manager, or from the device chooser dialog when starting an app
 
 Currently this uses a generic android system image and as such will not be exactly equivalent to testing your apps on a real jet device.
+
 ActivityStatusDemo, BluetoothLEDemo, ConnectivityDemo, DemoCompass, ExternalSensorDemo, GlanceDemo, MetricsDemo and MyFirstReconApp all require a Recon device to run.
+
 ReconUIExamples, NotificationDemo and CameraSample are able to run on emulators.
