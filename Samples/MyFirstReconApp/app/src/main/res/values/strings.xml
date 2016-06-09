@@ -3,4 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="altitude_value">%.1f m</string>
+    <string name="speed_vertical_value">%.1f km/h</string>
+    <string name="altitude_changed">Altitude Changed (+/- 2 Meters)!</string>
 </resources>

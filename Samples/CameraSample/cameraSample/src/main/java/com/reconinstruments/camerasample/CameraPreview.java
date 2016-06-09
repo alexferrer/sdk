@@ -14,6 +14,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
 	private SurfaceHolder mHolder;
 	private Camera mCamera;
+	private CamcorderProfile mProfile;
 
 	public CameraPreview(Context context) {
 		super(context);
@@ -50,9 +51,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
 	public void refreshCamera() {
 		try {
-			CamcorderProfile profile = VideoRecorder.camProfile;
 			Camera.Parameters parameters = mCamera.getParameters();
-			parameters.setPreviewSize(profile.videoFrameWidth,profile.videoFrameHeight);
+			parameters.setPreviewSize(mProfile.videoFrameWidth,mProfile.videoFrameHeight);
 			mCamera.setParameters(parameters);
 
 			mCamera.setPreviewDisplay(mHolder);
@@ -62,8 +62,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 		}
 	}
 
-	public void setCamera(Camera camera) {
+	public void setCamera(Camera camera, CamcorderProfile profile) {
 		mCamera = camera;
+		mProfile = profile;
 		refreshCamera();
 	}
 }

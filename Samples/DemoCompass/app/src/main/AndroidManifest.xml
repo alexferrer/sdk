@@ -10,7 +10,7 @@
         android:allowBackup="true"
         android:icon="@drawable/compass_icon"
         android:label="@string/app_name"
-        android:theme="@style/ReconTheme.NoTitleBar">
+        android:theme="@style/ReconTheme">
         <uses-library android:name="com.reconinstruments.os" android:required="true" />
         <activity
             android:name="com.reconinstruments.demo.compass.CompassActivity"

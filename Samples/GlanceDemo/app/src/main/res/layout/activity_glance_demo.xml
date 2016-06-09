@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/text"
-        android:text="GLANCE DEMO"
+        android:text="@string/glance_demo"
         android:textColor="@android:color/white"
         android:textSize="32dp"
         android:layout_centerInParent="true"
@@ -18,22 +18,20 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Removal"
+        android:text="@string/start_removal"
         android:id="@+id/removal_btn"
         android:layout_below="@+id/text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="39dp"
         android:onClick="startRemoval"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Glance"
+        android:text="@string/start_glance"
         android:id="@+id/glance_btn"
         android:layout_alignTop="@+id/removal_btn"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:onClick="startGlance"/>
 
 </RelativeLayout>

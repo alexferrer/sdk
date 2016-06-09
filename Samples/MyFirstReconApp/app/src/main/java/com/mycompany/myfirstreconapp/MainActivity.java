@@ -63,11 +63,11 @@ public class MainActivity extends Activity implements MetricsValueChangedListene
         {
             case HUDMetricsID.ALTITUDE_PRESSURE :
                 altitudePressure = value;
-                altitudeTextView.setText(String.format("%.1f", value) + " m");
+                altitudeTextView.setText(String.format(getString(R.string.altitude_value), value));
                 break;
             case HUDMetricsID.SPEED_VERTICAL :
                 speedVertical = value;
-                speedVrtTextView.setText(String.format("%.1f", value) + " km/h");
+                speedVrtTextView.setText(String.format(getString(R.string.speed_vertical_value), value));
                 break;
         }
 
@@ -83,7 +83,7 @@ public class MainActivity extends Activity implements MetricsValueChangedListene
         Notification notification = new Notification.Builder(getApplicationContext())
                 .setContentTitle("Notification")
                 .setSmallIcon(R.drawable.icon_checkmark)
-                .setContentText("Altitude Changed (+/- 2 Meters)!")
+                .setContentText(getString(R.string.altitude_changed))
                 .build();
         mNotificationManager.notify(0, notification);
     }
