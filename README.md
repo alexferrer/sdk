@@ -11,6 +11,7 @@ Copy Tools/devices.xml into your local .android directory
 
 Windows: 
     C:\Users\[User Name]\.android
+    
 Linux, Mac OS: 
     ~/.android
 
