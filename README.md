@@ -8,8 +8,10 @@ Recon SDK Samples and related files
 
 
 To get started with the Recon SDK, go to http://www.reconinstruments.com/developers/develop/
+<alex> This page is no longe available.. try wayback machine
 
 For an overview of available Samples, see http://www.reconinstruments.com/developers/develop/sample-apps-overview/
+<alex> This page is no longe available.. try wayback machine
 
 # Setting up an emulator
 
