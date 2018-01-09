@@ -1,5 +1,11 @@
+# Recon Jet SDK and Samples
+After searchng everywhere on the web, I found this repo with SDK for the ReconJet 
+
+
+
 # SDK
 Recon SDK Samples and related files
+
 
 To get started with the Recon SDK, go to http://www.reconinstruments.com/developers/develop/
 
@@ -9,9 +15,8 @@ For an overview of available Samples, see http://www.reconinstruments.com/develo
 
 Copy Tools/devices.xml into your local .android directory
 
-Windows: 
-    C:\Users\[User Name]\.android
-    
+<Alex> I am having troubles making this work 
+
 Linux, Mac OS: 
     ~/.android
 
