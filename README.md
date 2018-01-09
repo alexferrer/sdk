@@ -8,16 +8,19 @@ Recon SDK Samples and related files
 
 
 To get started with the Recon SDK, go to http://www.reconinstruments.com/developers/develop/
-<alex> This page is no longe available.. try wayback machine
+
+[alex] This page is no longer available.. try wayback machine
+https://web.archive.org/web/20151002104108/http://www.reconinstruments.com/developers/develop/getting-started/recon-sdk-4-api/
+
 
 For an overview of available Samples, see http://www.reconinstruments.com/developers/develop/sample-apps-overview/
-<alex> This page is no longe available.. try wayback machine
+[alex] This page is no longer available.. try wayback machine
 
 # Setting up an emulator
 
 Copy Tools/devices.xml into your local .android directory
 
-<Alex> I am having troubles making this work 
+[Alex] I am having troubles making this work 
 
 Linux, Mac OS: 
     ~/.android
